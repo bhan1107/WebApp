@@ -11,7 +11,7 @@ $username = "bhan1107";
 $password = "ss1ss2ss";
 $dbname = "CISC332";
 $formName = $_POST['formName'];
-
+$action = $_POST['action'];
 
 
 try { //connecting to the DB
@@ -50,12 +50,32 @@ try { //connecting to the DB
 		$fee = $_POST["studentFee"];                      
     	insertStudent($conn, $studentID, $firstName, $lastName, $fee);
 	}
+    
+    else if($formName == "company" && $action == "add"){
+    	echo "company insert if statement called";
+    	echo "<br>";
+    	$companyName = $_POST["companyName"];                      
+		$tier = $_POST["tier"];
+		$emailNumber = $_POST["emailNumber"];
+		$emailSent = $_POST["emailSent"];                      
+    	insertCompany($conn, $companyName, $tier, $emailNumber, $emailSent);
+	}
     }
 catch(PDOException $e)
     {
     echo "Connection failed: " . $e->getMessage();
     }
 
+function insertCompany($conn, $companyName, $tier, $emailNumber, $emailSent) #Insert company
+	{
+		echo "function called";
+		echo "<br>";
+		$sql = "INSERT INTO CISC332.company(Name,Tier,Email_Num,Email_Sent) 
+		VALUES ('$companyName', '$tier', '$emailNumber', '$emailSent')";
+		$conn->exec($sql);
+		echo "Inserted successfully";
+    }
+    
 function insertSponsor($conn,$firstName, $lastName, $sponsorID, $fee, $companyName) #Insert sponsor
 	{
 		echo "function called";

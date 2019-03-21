@@ -98,16 +98,21 @@ End Time: <input type="text" name="end-time" value=""><br>
 <br>
 </form> 
 
-<form id="companyForm" action="php/add_tuple.php">
-Name: <input type="text" name="name" value=""><br>
-Tier: <input type="text" name="tier" value=""><br>
-Email Number: <input type="text" name="email-number" value=""><br>
-Emails Sent: <input type="text" name="emails-sent" value=""><br>
-Company Name: <input type="text" name="company-name" value=""><br>
-<input type="submit" value="Submit">
+
+<form id="companyForm" action="firstphp.php" method="post">
+<p>Company Name:</p>
+<input type="text" name="companyName">
+<p>Tier:</p>
+<input type="text" name="tier">
+<p>Email Number:</p>
+<input type="text" name="emailNumber">
+<p>Email Sent:</p>
+<input type="text" name="emailSent"><br>
+<input type="hidden" name="formName" value="company">
+<input type="submit" name="action" value="add">
+<input type="submit" name="action" value="delete">
+<br>
 </form>
-
-
 
 <form id="roomsForm" action="php/add_tuple.php">
 Room Num: <input type="text" name="room-num" value=""><br>
