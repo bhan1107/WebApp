@@ -49,7 +49,7 @@ function insertSponsor($conn,$firstName, $lastName, $sponsorID, $fee, $companyNa
 		$conn->exec($sql);
 		echo "Inserted successfully";
     }
-function insertProfessional($conn,$firstName, $lastName, $sponsorID, $fee, $companyName) #Insert professional
+function insertProfessional($conn, $professionalID, $firstName, $lastName, $professionalFee) #Insert professional
 	{
 		echo "function called";
 		$sql = "INSERT INTO CISC332.sponsor(Professiona_ID,FirstName,LastName,Fee,Company_Name) 
