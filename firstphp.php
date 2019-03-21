@@ -72,8 +72,15 @@ function insertCompany($conn, $companyName, $tier, $emailNumber, $emailSent) #In
 		echo "<br>";
 		$sql = "INSERT INTO CISC332.company(Name,Tier,Email_Num,Email_Sent) 
 		VALUES ('$companyName', '$tier', '$emailNumber', '$emailSent')";
+		try{
 		$conn->exec($sql);
 		echo "Inserted successfully";
+		}
+		catch (PDOException $e){
+			if ($e->errorInfo[1] == 1062){
+				echo "Error, that company already exists";
+			}
+		}
     }
     
 function insertSponsor($conn,$firstName, $lastName, $sponsorID, $fee, $companyName) #Insert sponsor
