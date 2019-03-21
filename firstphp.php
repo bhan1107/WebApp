@@ -60,6 +60,17 @@ try { //connecting to the DB
 		$emailSent = $_POST["emailSent"];                      
     	insertCompany($conn, $companyName, $tier, $emailNumber, $emailSent);
 	}
+	
+	else if($formName == "company" && $action == "delete"){
+    	echo "company delete is statement called";
+    	echo "<br>";
+    	$companyName = $_POST["companyName"];                      
+		$tier = $_POST["tier"];
+		$emailNumber = $_POST["emailNumber"];
+		$emailSent = $_POST["emailSent"];                 
+    	deleteCompany($conn, $companyName, $tier, $emailNumber, $emailSent);
+	}
+	
     }
 catch(PDOException $e)
     {
