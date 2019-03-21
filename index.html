@@ -3,7 +3,7 @@
 <head>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="js/textfields.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
@@ -18,9 +18,12 @@
   <option value="sponsor">sponsor</option>
   <option value="rooms">rooms</option>
   <option value="job">job</option>
+  <option value="viewSubs">view members in subcommittee</option>
 </select>
 
 <p id="update">Update</p>
+
+
 
 <form id="conferenceForm" action="php/add_tuple.php">
 Name: <input type="text" name="name" value=""><br>
@@ -112,6 +115,11 @@ End Time: <input type="text" name="end-time" value=""><br>
 <input type="submit" name="action" value="add">
 <input type="submit" name="action" value="delete">
 <br>
+</form>
+
+<form id="viewSubsForm" action="firstphp.php" method="post">
+<input type="hidden" name="formName" value="viewSubCommittees">
+<input type="submit" value="Submit">
 </form>
 
 <form id="roomsForm" action="php/add_tuple.php">

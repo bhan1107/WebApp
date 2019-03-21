@@ -7,6 +7,6 @@
 
 #conferenceForm, #subcommitteeForm, #personForm, 
 #companyForm, #sessionForm, #studentForm, #professionalForm,
-#sponsorForm, #roomsForm, #jobForm {
+#sponsorForm, #roomsForm, #jobForm, #viewSubsForm {
 	display: none;
 }

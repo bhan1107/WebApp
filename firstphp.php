@@ -50,7 +50,6 @@ try { //connecting to the DB
 		$fee = $_POST["studentFee"];                      
     	insertStudent($conn, $studentID, $firstName, $lastName, $fee);
 	}
-    
     else if($formName == "company" && $action == "add"){
     	echo "company insert if statement called";
     	echo "<br>";
@@ -60,6 +59,16 @@ try { //connecting to the DB
 		$emailSent = $_POST["emailSent"];                      
     	insertCompany($conn, $companyName, $tier, $emailNumber, $emailSent);
 	}
+	else if ($formName == "viewSubCommittees"){
+		showSubcommittees();
+	}
+	else if ($formName == "subcMembersForm"){
+		echo "<br>";
+    	$selected_subc = $_POST['subcommitteeChosen'];
+    	showSubMembers($selected_subc);
+	}
+
+    
     }
 catch(PDOException $e)
     {
@@ -113,7 +122,57 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee) #Insert s
 		echo "Inserted successfully";
     }
 
-?> 
+
+function showSubMembers($subcommitteeName){
+	global $conn;
+
+	$stmt = $conn->prepare("SELECT Member FROM CISC332.subCommittee WHERE Name = '$subcommitteeName'");
+
+	$stmt->execute();
+	$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+	echo "Here are all the members in the ";
+	echo "$subcommitteeName subcommittee<br>";
+	for ($x = 0; $x < sizeof($array); $x++){
+		$temp = $x + 1;
+		echo "Member {$temp}: $array[$x]<br>";
+	}
+}
+
+function showSubcommittees(){
+	global $conn;
+
+	$stmt = $conn->prepare("SELECT Name FROM CISC332.subCommittee");
+
+	$stmt->execute();
+	$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+	$arrayRemovedDupes = array_unique($array);
+
+
+	echo "<br>Here is a drop down of all the existing subcommittees:<br>";
+	?> 
+	<form id="subcMembersForm" action="firstphp.php" method="post">
+	<select name="subcommitteeChosen">
+	<?php
+	foreach ($arrayRemovedDupes as $subc){
+		?>
+		<option value="<?php echo $subc; ?>"><?php echo $subc; ?></option>
+		<?php
+
+	}
+	?>
+
+	</select>
+	<input type="hidden" name="formName" value="subcMembersForm">
+  	<input type="submit" name="SubmitButton"/>
+	</form>
+	<?php 
+}
+
+?>
+
+
 
 
 
