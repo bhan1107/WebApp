@@ -112,6 +112,14 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee) #Insert s
 		$conn->exec($sql);
 		echo "Inserted successfully";
     }
+    function deleteCompany($conn, $companyName, $tier, $emailNumber, $emailSent) #Insert company
+	{
+		echo "Delete Company Function Called";
+		echo "<br>";
+		$sql = "DELETE FROM CISC332.company WHERE Name = '$companyName' AND Tier = '$tier'; ";
+		$conn->exec($sql);
+		echo "Inserted successfully";
+    }
 
 ?> 
 
