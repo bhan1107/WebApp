@@ -1,0 +1,12 @@
+#update{
+	background-color: red;
+	color: white;
+	padding: 5px;
+	display:inline-block;
+}
+
+#conferenceForm, #subcommitteeForm, #personForm, 
+#companyForm, #sessionForm, #studentForm, #professionalForm,
+#sponsorForm, #roomsForm, #jobForm {
+	display: none;
+}
