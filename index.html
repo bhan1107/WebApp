@@ -52,13 +52,19 @@ End Time: <input type="text" name="end-time" value=""><br>
 <input type="submit" value="Submit">
 </form>
 
-<form id="studentForm" action="php/add_tuple.php">
-Student ID: <input type="text" name="student-id" value=""><br>
-First Name: <input type="text" name="first-name" value=""><br>
-Last Name: <input type="text" name="last-name" value=""><br>
-Fee: <input type="text" name="fee" value=""><br>
-<input type="submit" value="Submit">
-</form>
+<form id="studentForm" action="firstphp.php" method="post">
+<p>Student ID:</p>
+<input type="text" name="studentID">
+<p>First name:</p>
+<input type="text" name="sfirstname">
+<p>Last name:</p>
+<input type="text" name="slastname">
+<p>Fee:</p>
+<input type="text" name="studentFee">
+<input type="hidden" name="formName" value="studentInsert">
+<br>
+<input type="submit">
+</form> 
 
 
 <form id="professionalForm" action="firstphp.php" method="post">
@@ -87,8 +93,9 @@ Fee: <input type="text" name="fee" value=""><br>
 <p>Company Name:</p>
 <input type="text" name="companyName">
 <input type="hidden" name="formName" value="sponsorInsert">
+<input type="submit" name="Action" value="add">
+<input type="submit" name="Action" value="delete">
 <br>
-<input type="submit">
 </form> 
 
 <form id="companyForm" action="php/add_tuple.php">
@@ -99,6 +106,8 @@ Emails Sent: <input type="text" name="emails-sent" value=""><br>
 Company Name: <input type="text" name="company-name" value=""><br>
 <input type="submit" value="Submit">
 </form>
+
+
 
 <form id="roomsForm" action="php/add_tuple.php">
 Room Num: <input type="text" name="room-num" value=""><br>
