@@ -11,7 +11,7 @@ $username = "bhan1107";
 $password = "ss1ss2ss";
 $dbname = "CISC332";
 $formName = $_POST['formName'];
-echo "nibba";
+echo "niqqa";
 
 try { //connecting to the DB
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -40,8 +40,7 @@ function insertSponsor($conn,$firstName, $lastName, $sponsorID, $fee, $companyNa
 		VALUES ('$sponsorID','$firstName','$lastName','$fee','$companyName')";
 		$conn->exec($sql);
 		echo "Inserted successfully";
-	}
-	
+    }
 	
 
 ?> 
