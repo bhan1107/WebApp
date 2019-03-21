@@ -18,9 +18,10 @@ try { //connecting to the DB
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Connected successfully\n";
-    echo "FUCK MY LIFE";
+	echo "<br>";
     if($formName == "sponsorInsert"){
-    	echo "If-statement called\n";
+    	echo "sponsor insert if statement called";
+    	echo "<br>";
     	$firstName = $_POST["firstname"];                      
 		$lastName = $_POST["lastname"];
 		$sponsorID = $_POST["sponsorID"];
@@ -37,6 +38,7 @@ catch(PDOException $e)
 function insertSponsor($conn,$firstName, $lastName, $sponsorID, $fee, $companyName) #Insert sponsor
 	{
 		echo "function called";
+		echo "<br>";
 		$sql = "INSERT INTO CISC332.sponsor(Sponsor_ID,FirstName,LastName,Fee,Company_Name) 
 		VALUES ('$sponsorID','$firstName','$lastName','$fee','$companyName')";
 		$conn->exec($sql);
