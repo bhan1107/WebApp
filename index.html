@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="js/textfields.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+<select id="tableDropdown">
+  <option value="conference">conference</option>
+  <option value="subcommittee">subcommittee</option>
+  <option value="person">person</option>
+  <option value="session">session</option>
+  <option value="student">student</option>
+  <option value="professional">professional</option>
+  <option value="company">company</option>
+  <option value="sponsor">sponsor</option>
+  <option value="rooms">rooms</option>
+  <option value="job">job</option>
+</select>
+
+<p id="update">Update</p>
+
+<form id="conferenceForm" action="php/add_tuple.php">
+Name: <input type="text" name="name" value=""><br>
+Date: <input type="text" name="date" value=""><br>
+<input type="submit" value="Submit">
+</form>
+
+<form id="subcommitteeForm" action="php/add_tuple.php">
+Name: <input type="text" name="name" value=""><br>
+Chair Name: <input type="text" name="chair-name" value=""><br>
+Member: <input type="text" name="member" value=""><br>
+<input type="submit" value="Submit">
+</form>
+
+<form id="personForm" action="php/add_tuple.php">
+Person ID: <input type="text" name="person-id" value=""><br>
+First Name: <input type="text" name="first-name" value=""><br>
+Last Name: <input type="text" name="last-name" value=""><br>
+<input type="submit" value="Submit">
+</form>
+
+<form id="sessionForm" action="php/add_tuple.php">
+Session ID: <input type="text" name="session-id" value=""><br>
+Speaker: <input type="text" name="speaker" value=""><br>
+Room Number: <input type="text" name="room-number" value=""><br>
+Start Date: <input type="text" name="start-date" value=""><br>
+Start Time: <input type="text" name="start-time" value=""><br>
+End Time: <input type="text" name="end-time" value=""><br>
+<input type="submit" value="Submit">
+</form>
+
+<form id="studentForm" action="php/add_tuple.php">
+Student ID: <input type="text" name="student-id" value=""><br>
+First Name: <input type="text" name="first-name" value=""><br>
+Last Name: <input type="text" name="last-name" value=""><br>
+Fee: <input type="text" name="fee" value=""><br>
+<input type="submit" value="Submit">
+</form>
+
+<form id="professionalForm" action="php/add_tuple.php">
+Professional ID: <input type="text" name="professional-id" value=""><br>
+First Name: <input type="text" name="first-name" value=""><br>
+Last Name: <input type="text" name="last-name" value=""><br>
+Fee: <input type="text" name="fee" value=""><br>
+<input type="submit" value="Submit">
+</form>
+
+<form id="sponsorForm" action="firstphp.php" method="post">
+<p>First name:</p>
+<input type="text" name="firstname">
+<p>Last name:</p>
+<input type="text" name="lastname">
+<p>Sponsor ID:</p>
+<input type="text" name="sponsorID">
+<p>Fee:</p>
+<input type="text" name="sponsorFee">
+<p>Company Name:</p>
+<input type="text" name="companyName">
+<input type="hidden" name="formName" value="sponsorInsert">
+<br>
+<input type="submit">
+</form> 
+
+<form id="companyForm" action="php/add_tuple.php">
+Name: <input type="text" name="name" value=""><br>
+Tier: <input type="text" name="tier" value=""><br>
+Email Number: <input type="text" name="email-number" value=""><br>
+Emails Sent: <input type="text" name="emails-sent" value=""><br>
+Company Name: <input type="text" name="company-name" value=""><br>
+<input type="submit" value="Submit">
+</form>
+
+<form id="roomsForm" action="php/add_tuple.php">
+Room Num: <input type="text" name="room-num" value=""><br>
+Bed Num: <input type="text" name="bed-num" value=""><br>
+<input type="submit" value="Submit">
+</form>
+
+<form id="jobForm" action="php/add_tuple.php">
+Post ID: <input type="text" name="post-id" value=""><br>
+Company Name: <input type="text" name="company-name" value=""><br>
+Title: <input type="text" name="title" value=""><br>
+City: <input type="text" name="city" value=""><br>
+Province: <input type="text" name="province" value=""><br>
+Posted Date: <input type="text" name="posted-date" value=""><br>
+<input type="submit" value="Submit">
+</form>
+  
+</body>
+</html>
