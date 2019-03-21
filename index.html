@@ -60,13 +60,20 @@ Fee: <input type="text" name="fee" value=""><br>
 <input type="submit" value="Submit">
 </form>
 
-<form id="professionalForm" action="php/add_tuple.php">
-Professional ID: <input type="text" name="professional-id" value=""><br>
-First Name: <input type="text" name="first-name" value=""><br>
-Last Name: <input type="text" name="last-name" value=""><br>
-Fee: <input type="text" name="fee" value=""><br>
-<input type="submit" value="Submit">
-</form>
+
+<form id="professionalForm" action="firstphp.php" method="post">
+<p>Professional ID:</p>
+<input type="text" name="professionalID">
+<p>First name:</p>
+<input type="text" name="firstname">
+<p>Last name:</p>
+<input type="text" name="lastname">
+<p>Fee:</p>
+<input type="text" name="professionalFee">
+<input type="hidden" name="formName" value="professionalInsert">
+<br>
+<input type="submit">
+</form> 
 
 <form id="sponsorForm" action="firstphp.php" method="post">
 <p>First name:</p>

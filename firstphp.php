@@ -29,6 +29,16 @@ try { //connecting to the DB
 		$companyName = $_POST["companyName"];
     	insertSponsor($conn,$firstName, $lastName, $sponsorID, $fee, $companyName);
 	}
+    
+    if($formName == "professionalInsert"){
+    	echo "sponsor insert if statement called";
+    	echo "<br>";
+        $professionalID = $_POST["professionalID"];
+    	$firstName = $_POST["firstname"];                      
+		$lastName = $_POST["lastname"];
+		$fee = $_POST["professionalFee"];                      
+    	insertProfesional($conn, $professionalID, $firstName, $lastName, $fee);
+	}
     }
 catch(PDOException $e)
     {
@@ -44,7 +54,16 @@ function insertSponsor($conn,$firstName, $lastName, $sponsorID, $fee, $companyNa
 		$conn->exec($sql);
 		echo "Inserted successfully";
     }
-	
+    
+function insertProfesional($conn, $professionalID, $firstName, $lastName, $fee) #Insert sponsor
+	{
+		echo "function called";
+		echo "<br>";
+		$sql = "INSERT INTO CISC332.professional(Professional_ID,FirstName,LastName,Fee) 
+		VALUES ('$professionalID','$firstName','$lastName','$fee')";
+		$conn->exec($sql);
+		echo "Inserted successfully";
+    }
 
 ?> 
 
