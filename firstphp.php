@@ -11,7 +11,7 @@ $username = "bhan1107";
 $password = "ss1ss2ss";
 $dbname = "CISC332";
 $formName = $_POST['formName'];
-
+echo "nibba";
 
 try { //connecting to the DB
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
