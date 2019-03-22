@@ -85,7 +85,12 @@ try { //connecting to the DB
 		$emailSent = $_POST["emailSent"];                 
     	deleteCompany($conn, $companyName, $tier, $emailNumber, $emailSent);
 	}
-<<<<<<< HEAD
+	else if($formName == "listJobs"){
+		echo "list Jobs called";
+		echo "<br>";
+		$companyName = $_POST["companyName"];
+		listJobs($conn, $companyName);
+	}	
 	else if ($formName == "viewRooms"){
 		showHotelRooms($conn);
 	}
@@ -94,14 +99,7 @@ try { //connecting to the DB
     	$selected_room = $_POST['roomNumChosen'];
     	showStudentsInRoom($selected_room, $conn);
 	}
-	else{
-		echo "list Jobs called";
-		echo "<br>";
-		listJobs($conn);
-	}
-=======
->>>>>>> f8ef14f3641d7741558dbe2821fcf55c3e7d01f5
-	
+
     }
 catch(PDOException $e)
     {
