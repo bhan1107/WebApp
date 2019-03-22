@@ -70,12 +70,6 @@ try { //connecting to the DB
     	$selected_subc = $_POST['subcommitteeChosen'];
     	showSubMembers($selected_subc, $conn);
 	}
-	else if($formName == "listJobs"){
-		echo "list Jobs called";
-		echo "<br>";
-		$companyName = $_POST["companyName"];
-		listJobs($conn, $companyName);
-	}
 	else if($formName == "company" && $action == "delete"){
     	echo "company delete is statement called";
     	echo "<br>";
@@ -179,7 +173,7 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee) #Insert s
     	echo 'City: ' . $row['City'] . ' ';
     	echo 'Province: ' . $row['Province'] . '<br>';
 
-}
+		}
     }
 
 
