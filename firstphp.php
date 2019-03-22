@@ -173,7 +173,7 @@ function showSubMembers($subcommitteeName){
 	$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
 	echo "Here are all the members in the ";
-	echo "$subcommitteeName subcommittee<br>";
+	echo "$subcommitteeName subcommittee:<br>";
 	for ($x = 0; $x < sizeof($array); $x++){
 		$temp = $x + 1;
 		echo "Member {$temp}: $array[$x]<br>";
