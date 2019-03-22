@@ -99,6 +99,13 @@ End Time: <input type="text" name="end-time" value=""><br>
 <br>
 </form> 
 
+<form id="jobForm" action="firstphp.php" method="post">
+<p>Company Name:</p>
+<input type="text" name="companyName">
+<input type="hidden" name="formName" value="listJobs">
+<input type="submit" value="Submit">
+<br>
+</form> 
 
 <form id="companyForm" action="firstphp.php" method="post">
 <p>Company Name:</p>
@@ -125,12 +132,6 @@ End Time: <input type="text" name="end-time" value=""><br>
 <input type="submit" name="action" value="View rooms">
 </form>
 
-<form id="jobForm" action="firstphp.php">
-<p>Company Name:</p>
-<input type="text" name="companyName">
-<input type="hidden" name="formName" value="listJobs">
-<input type="submit" value="Submit">
-</form>
-  
+
 </body>
 </html>

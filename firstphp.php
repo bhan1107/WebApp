@@ -20,7 +20,7 @@ try { //connecting to the DB
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Connected successfully\n";
 	echo "<br>";
-	echo "$formName";
+	echo "$formName" . " HELLO!" . "<br>";
 	echo "<br>";
 	
     if($formName == "sponsorInsert"){
@@ -70,8 +70,12 @@ try { //connecting to the DB
     	$selected_subc = $_POST['subcommitteeChosen'];
     	showSubMembers($selected_subc, $conn);
 	}
-
-	
+	else if($formName == "listJobs"){
+		echo "list Jobs called";
+		echo "<br>";
+		$companyName = $_POST["companyName"];
+		listJobs($conn, $companyName);
+	}
 	else if($formName == "company" && $action == "delete"){
     	echo "company delete is statement called";
     	echo "<br>";
@@ -81,6 +85,7 @@ try { //connecting to the DB
 		$emailSent = $_POST["emailSent"];                 
     	deleteCompany($conn, $companyName, $tier, $emailNumber, $emailSent);
 	}
+<<<<<<< HEAD
 	else if ($formName == "viewRooms"){
 		showHotelRooms($conn);
 	}
@@ -94,6 +99,8 @@ try { //connecting to the DB
 		echo "<br>";
 		listJobs($conn);
 	}
+=======
+>>>>>>> f8ef14f3641d7741558dbe2821fcf55c3e7d01f5
 	
     }
 catch(PDOException $e)
@@ -155,11 +162,17 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee) #Insert s
 		$conn->exec($sql);
 		echo "Inserted successfully";
     }
-    function listJobs($conn)
+    function listJobs($conn, $companyName)
     {
     	echo "list job Function Called";
 		echo "<br>";
-		$sql = "SELECT `Company_Name`, `Title`, `City`, `Province`, `Payrate` FROM `job`";
+		if(empty($companyName)){
+			$sql = "SELECT `Company_Name`, `Title`, `City`, `Province`, `Payrate` FROM `job`";
+		}
+		else{
+			$sql = "SELECT `Company_Name`, `Title`, `City`, `Province`, `Payrate` FROM `job` WHERE `Company_Name` = '$companyName'";
+		}
+		
  
 		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
     	echo 'Company: ' . $row['Company_Name'] . ' ';
