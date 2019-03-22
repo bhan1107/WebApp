@@ -57,8 +57,8 @@ try { //connecting to the DB
     	echo "student insert if statement called";
     	echo "<br>";
         $studentID = $_POST["studentID"];
-    	$firstName = $_POST["sfirstname"];                      
-		$lastName = $_POST["slastname"];
+    	$firstName = $_POST["firstname"];                      
+		$lastName = $_POST["lastname"];
 		$fee = $_POST["studentFee"]; 
         $room = $_POST["roomNumber"];  
     	insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room);
