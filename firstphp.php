@@ -102,6 +102,9 @@ try { //connecting to the DB
     	$selected_room = $_POST['roomNumChosen'];
     	showStudentsInRoom($selected_room, $conn);
 	}
+     else if ($formName == "viewConference"){
+		showConference($conn);
+	}
 
     }
 catch(PDOException $e)
@@ -284,6 +287,18 @@ function showHotelRooms($conn){
 	</form>
 	<?php 
 }
+
+
+function showConference($conn)
+	{
+		$sql = "SELECT Name, Date FROM conference";
+ 
+		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
+    	echo 'Company: ' . $row['Name'] . ' ';
+    	echo 'Date: ' . $row['Date'] . '<br>';
+
+		}
+	}
 ?>
 
 
