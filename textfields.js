@@ -11,6 +11,5 @@ $(document).ready(function() {
     	lastForm = currentForm;
     });
 
-     
     lastForm.css("display", "block");
 });
