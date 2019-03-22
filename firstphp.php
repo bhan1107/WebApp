@@ -63,12 +63,12 @@ try { //connecting to the DB
     	insertCompany($conn, $companyName, $tier, $emailNumber, $emailSent);
 	}
 	else if ($formName == "viewSubCommittees"){
-		showSubcommittees();
+		showSubcommittees($conn);
 	}
 	else if ($formName == "subcMembersForm"){
 		echo "<br>";
     	$selected_subc = $_POST['subcommitteeChosen'];
-    	showSubMembers($selected_subc);
+    	showSubMembers($selected_subc, $conn);
 	}
 
 	
@@ -164,8 +164,7 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee) #Insert s
     }
 
 
-function showSubMembers($subcommitteeName){
-	global $conn;
+function showSubMembers($subcommitteeName, $conn){
 
 	$stmt = $conn->prepare("SELECT Member FROM CISC332.subCommittee WHERE Name = '$subcommitteeName'");
 
@@ -180,8 +179,7 @@ function showSubMembers($subcommitteeName){
 	}
 }
 
-function showSubcommittees(){
-	global $conn;
+function showSubcommittees($conn){
 
 	$stmt = $conn->prepare("SELECT Name FROM CISC332.subCommittee");
 
