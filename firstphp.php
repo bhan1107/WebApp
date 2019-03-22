@@ -21,9 +21,13 @@ try { //connecting to the DB
     echo "Connected successfully\n";
 	echo "<br>";
 	echo "$formName" . " HELLO!" . "<br>";
-	echo "<br>";
-	
-    if($formName == "sponsorInsert"){
+	echo "$action" . " is action name <br>";
+	if($action == "add"){
+		echo "Add<br>";
+	}else{
+		echo "List <br>";
+	}
+    if($action == "add" && $formName == "sponsorInsert"){
     	echo "sponsor insert if statement called";
     	echo "<br>";
     	$firstName = $_POST["firstname"];                      
@@ -33,7 +37,12 @@ try { //connecting to the DB
 		$companyName = $_POST["companyName"];
     	insertSponsor($conn,$firstName, $lastName, $sponsorID, $fee, $companyName);
 	}
-    
+
+	else if($formName == "sponsorInsert" && $action == "list"){
+		echo "Sponsor List is called";
+    	listSponsor($conn);
+	}
+	
     else if($formName == "professionalInsert"){
     	echo "professional insert if statement called";
     	echo "<br>";
@@ -125,8 +134,17 @@ function insertSponsor($conn,$firstName, $lastName, $sponsorID, $fee, $companyNa
 		VALUES ('$sponsorID','$firstName','$lastName','$fee','$companyName')";
 		$conn->exec($sql);
 		echo "Inserted successfully";
-    }
-    
+	}
+	
+function listSponsor($conn)
+	{
+		$sql = "SELECT `Name`, `Tier` FROM `company`";
+		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
+			echo 'Company: ' . $row['Name'] . ' ';
+			echo 'Sponsorship Level: ' . $row['Tier'] . '<br>';
+		}
+	}
+	
 function insertProfesional($conn, $professionalID, $firstName, $lastName, $fee) #Insert professional
 	{
 		echo "function called";
