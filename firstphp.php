@@ -59,8 +59,9 @@ try { //connecting to the DB
         $studentID = $_POST["studentID"];
     	$firstName = $_POST["sfirstname"];                      
 		$lastName = $_POST["slastname"];
-		$fee = $_POST["studentFee"];                      
-    	insertStudent($conn, $studentID, $firstName, $lastName, $fee);
+		$fee = $_POST["studentFee"]; 
+        $room = $_POST["roomNumber"];  
+    	insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room);
 	}
     else if($formName == "company" && $action == "add"){
     	echo "company insert if statement called";
@@ -158,12 +159,12 @@ function insertProfesional($conn, $professionalID, $firstName, $lastName, $fee) 
 		echo "Inserted successfully";
     }
     
-function insertStudent($conn, $studentID, $firstName, $lastName, $fee) #Insert student
+function insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room) #Insert student
 	{
 		echo "function called";
 		echo "<br>";
-		$sql = "INSERT INTO CISC332.student(Student_ID,FirstName,LastName,Fee) 
-		VALUES ('$studentID','$firstName','$lastName','$fee')";
+		$sql = "INSERT INTO CISC332.student(Student_ID,FirstName,LastName,Fee,fk_roomNum) 
+		VALUES ('$studentID','$firstName','$lastName','$fee','$room')";
 		$conn->exec($sql);
 		echo "Inserted successfully";
     }
