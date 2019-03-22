@@ -20,6 +20,9 @@ try { //connecting to the DB
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Connected successfully\n";
 	echo "<br>";
+	echo "$formName";
+	echo "<br>";
+	
     if($formName == "sponsorInsert"){
     	echo "sponsor insert if statement called";
     	echo "<br>";
@@ -59,6 +62,7 @@ try { //connecting to the DB
 		$emailSent = $_POST["emailSent"];                      
     	insertCompany($conn, $companyName, $tier, $emailNumber, $emailSent);
 	}
+<<<<<<< HEAD
 	else if ($formName == "viewSubCommittees"){
 		showSubcommittees();
 	}
@@ -69,6 +73,24 @@ try { //connecting to the DB
 	}
 
     
+=======
+	
+	else if($formName == "company" && $action == "delete"){
+    	echo "company delete is statement called";
+    	echo "<br>";
+    	$companyName = $_POST["companyName"];                      
+		$tier = $_POST["tier"];
+		$emailNumber = $_POST["emailNumber"];
+		$emailSent = $_POST["emailSent"];                 
+    	deleteCompany($conn, $companyName, $tier, $emailNumber, $emailSent);
+	}
+	else{
+		echo "list Jobs called";
+		echo "<br>";
+		listJobs($conn);
+	}
+	
+>>>>>>> 6d64f3834ffefb88ad857e2bb7f815d3ee7f5a77
     }
 catch(PDOException $e)
     {
@@ -120,6 +142,29 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee) #Insert s
 		VALUES ('$studentID','$firstName','$lastName','$fee')";
 		$conn->exec($sql);
 		echo "Inserted successfully";
+    }
+    function deleteCompany($conn, $companyName, $tier, $emailNumber, $emailSent) #Insert company
+	{
+		echo "Delete Company Function Called";
+		echo "<br>";
+		$sql = "DELETE FROM CISC332.company WHERE Name = '$companyName' AND Tier = '$tier'; ";
+		$conn->exec($sql);
+		echo "Inserted successfully";
+    }
+    function listJobs($conn)
+    {
+    	echo "list job Function Called";
+		echo "<br>";
+		$sql = "SELECT `Company_Name`, `Title`, `City`, `Province`, `Payrate` FROM `job`";
+ 
+		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
+    	echo 'Company: ' . $row['Company_Name'] . ' ';
+    	echo 'Title: ' . $row['Title'] . ' ';
+    	echo 'Payrate: ' . $row['Payrate'] . ' ' ;
+    	echo 'City: ' . $row['City'] . ' ';
+    	echo 'Province: ' . $row['Province'] . '<br>';
+
+}
     }
 
 
