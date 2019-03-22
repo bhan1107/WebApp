@@ -62,7 +62,6 @@ try { //connecting to the DB
 		$emailSent = $_POST["emailSent"];                      
     	insertCompany($conn, $companyName, $tier, $emailNumber, $emailSent);
 	}
-<<<<<<< HEAD
 	else if ($formName == "viewSubCommittees"){
 		showSubcommittees();
 	}
@@ -72,8 +71,6 @@ try { //connecting to the DB
     	showSubMembers($selected_subc);
 	}
 
-    
-=======
 	
 	else if($formName == "company" && $action == "delete"){
     	echo "company delete is statement called";
@@ -90,7 +87,6 @@ try { //connecting to the DB
 		listJobs($conn);
 	}
 	
->>>>>>> 6d64f3834ffefb88ad857e2bb7f815d3ee7f5a77
     }
 catch(PDOException $e)
     {
@@ -210,7 +206,7 @@ function showSubcommittees(){
 
 	</select>
 	<input type="hidden" name="formName" value="subcMembersForm">
-  	<input type="submit" name="SubmitButton"/>
+  	<input type="submit" name="SubmitButton" value="Select subcommittee"/>
 	</form>
 	<?php 
 }
