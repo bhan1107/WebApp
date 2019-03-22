@@ -184,8 +184,7 @@ function showSubMembers($subcommitteeName, $conn){
 	$stmt->execute();
 	$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-	echo "Here are all the members in the ";
-	echo "$subcommitteeName subcommittee:<br>";
+	echo "Here are all the members in the $subcommitteeName subcommittee:<br>";
 	for ($x = 0; $x < sizeof($array); $x++){
 		$temp = $x + 1;
 		echo "Member {$temp}: $array[$x]<br>";
@@ -224,17 +223,16 @@ function showSubcommittees($conn){
 
 function showStudentsInRoom($roomNum, $conn){
 
-	$stmt = $conn->prepare("SELECT FirstName FROM CISC332.student WHERE fk_roomNum = '$roomNum'");
+	$stmt = "SELECT `Student_ID`, `FirstName`, `LastName` FROM `student` WHERE `fk_roomNum` = '$roomNum'";
 
-	$stmt->execute();
-	$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-	echo "Here are all the members in room number ";
-	echo "{$roomNum}:<br>";
-	for ($x = 0; $x < sizeof($array); $x++){
-		$temp = $x + 1;
-		echo "Student {$temp}: $array[$x]<br>";
-	}
+	$count = 1;
+	foreach($conn->query($stmt, PDO::FETCH_ASSOC) as $row){
+		echo "Student {$count}: ";
+    	echo 'Student ID: ' . $row['Student_ID'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
+    	echo 'First Name: ' . $row['FirstName'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
+    	echo 'Last Name: ' . $row['LastName'] . '<br>';
+    	$count = $count + 1;
+		}
 }
 
 function showHotelRooms($conn){
@@ -242,6 +240,7 @@ function showHotelRooms($conn){
 	$stmt = $conn->prepare("SELECT roomNum FROM CISC332.rooms");
 
 	$stmt->execute();
+
 	$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
 	$arrayRemovedDupes = array_unique($array);
