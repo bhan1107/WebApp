@@ -19,6 +19,7 @@
   <option value="rooms">rooms</option>
   <option value="job">job</option>
   <option value="viewSubs">view members in subcommittee</option>
+  <option value="viewRooms">view all students in the same room</option>
 </select>
 
 
@@ -119,10 +120,9 @@ End Time: <input type="text" name="end-time" value=""><br>
 <input type="submit" name="action" value="View subcommittees">
 </form>
 
-<form id="roomsForm" action="php/add_tuple.php">
-Room Num: <input type="text" name="room-num" value=""><br>
-Bed Num: <input type="text" name="bed-num" value=""><br>
-<input type="submit" value="Submit">
+<form id="viewRoomsForm" action="firstphp.php" method="post">
+<input type="hidden" name="formName" value="viewRooms">
+<input type="submit" name="action" value="View rooms">
 </form>
 
 <form id="jobForm" action="firstphp.php">

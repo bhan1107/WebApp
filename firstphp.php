@@ -81,6 +81,14 @@ try { //connecting to the DB
 		$emailSent = $_POST["emailSent"];                 
     	deleteCompany($conn, $companyName, $tier, $emailNumber, $emailSent);
 	}
+	else if ($formName == "viewRooms"){
+		showHotelRooms($conn);
+	}
+	else if ($formName == "studentsInRoomForm"){
+		echo "<br>";
+    	$selected_room = $_POST['roomNumChosen'];
+    	showStudentsInRoom($selected_room, $conn);
+	}
 	else{
 		echo "list Jobs called";
 		echo "<br>";
@@ -209,6 +217,50 @@ function showSubcommittees($conn){
 	<?php 
 }
 
+function showStudentsInRoom($roomNum, $conn){
+
+	$stmt = $conn->prepare("SELECT FirstName FROM CISC332.student WHERE fk_roomNum = '$roomNum'");
+
+	$stmt->execute();
+	$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+	echo "Here are all the members in room number ";
+	echo "{$roomNum}:<br>";
+	for ($x = 0; $x < sizeof($array); $x++){
+		$temp = $x + 1;
+		echo "Student {$temp}: $array[$x]<br>";
+	}
+}
+
+function showHotelRooms($conn){
+
+	$stmt = $conn->prepare("SELECT roomNum FROM CISC332.rooms");
+
+	$stmt->execute();
+	$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+	$arrayRemovedDupes = array_unique($array);
+
+
+	echo "<br>Here is a drop down of all the room numbers currently in use:<br>";
+	?> 
+	<form id="studentsInRoomForm" action="firstphp.php" method="post">
+	<select name="roomNumChosen">
+	<?php
+	foreach ($arrayRemovedDupes as $roomNum){
+		?>
+		<option value="<?php echo $roomNum; ?>"><?php echo $roomNum; ?></option>
+		<?php
+
+	}
+	?>
+
+	</select>
+	<input type="hidden" name="formName" value="studentsInRoomForm">
+  	<input type="submit" name="SubmitButton" value="Select room number"/>
+	</form>
+	<?php 
+}
 ?>
 
 
