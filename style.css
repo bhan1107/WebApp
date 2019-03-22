@@ -1,12 +1,10 @@
-#update{
-	background-color: red;
-	color: white;
-	padding: 5px;
-	display:inline-block;
-}
-
-#conferenceForm, #subcommitteeForm, #personForm, 
+#subcommitteeForm, #personForm, 
 #companyForm, #sessionForm, #studentForm, #professionalForm,
 #sponsorForm, #roomsForm, #jobForm, #viewSubsForm {
 	display: none;
+}
+
+/* First drop down item only */
+#conferenceForm {
+	display: block;
 }
