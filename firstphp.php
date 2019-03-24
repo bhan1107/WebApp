@@ -103,8 +103,13 @@ try { //connecting to the DB
     	$selected_room = $_POST['roomNumChosen'];
     	showStudentsInRoom($selected_room, $conn);
 	}
-     else if ($formName == "viewConference"){
-		showConference($conn);
+    else if ($formName == "viewSession"){
+		showSession($conn);
+	}
+    else if ($formName == "sessionDateForm"){
+		echo "<br>";
+    	$selected_date = $_POST['dateChosen'];
+    	showSessionDate($selected_date, $conn);
 	}
 
     }
@@ -288,22 +293,53 @@ function showHotelRooms($conn){
 	<?php 
 }
 
+function showSessionDate($date, $conn){
 
-function showConference($conn)
-	{
-		$sql = "SELECT Name, Date FROM conference";
- 
-		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
-    	echo 'Company: ' . $row['Name'] . ' ';
-    	echo 'Date: ' . $row['Date'] . '<br>';
-
+	$stmt = "SELECT `Session_ID`, `Speaker`, `Room_Number`, `Start_Date`, `Start_Time`, `End_Time`  FROM `session` WHERE `Start_Date` = '$date'";
+	$count = 1;
+	foreach($conn->query($stmt, PDO::FETCH_ASSOC) as $row){
+		echo " {$count}: ";
+    	echo 'Session ID: ' . $row['Session_ID'] . ' ';
+        echo 'Speaker: ' . $row['Speaker'] . ' ';
+        echo 'Start_Date: ' . $row['Start_Date'] . ' ';
+        echo 'Start_Time: ' . $row['Start_Time'] .' ';
+        echo 'End_Time: ' . $row['End_Time'] . '<br>';;
+    	$count = $count + 1;
 		}
+	
+}
+
+function showSession($conn){
+    
+    $stmt = $conn->prepare("SELECT Start_Date FROM CISC332.session");
+
+	$stmt->execute();
+
+	$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+	$arrayRemovedDupes = array_unique($array);
+
+
+	echo "<br>Here is a drop down of all the session currently in use:<br>";
+	?> 
+	<form id="sessionDateForm" action="firstphp.php" method="post">
+	<select name="dateChosen">
+	<?php
+	foreach ($arrayRemovedDupes as $date){
+		?>
+		<option value="<?php echo $date; ?>"><?php echo $date; ?></option>
+		<?php
+
 	}
+	?>
+
+	</select>
+	<input type="hidden" name="formName" value="sessionDateForm">
+  	<input type="submit" name="SubmitButton" value="Select date"/>
+	</form>
+	<?php 
+}
 ?>
-
-
-
-
 
 </body>
 </html> 

@@ -22,10 +22,11 @@
   <option value="viewRooms">view all students in the same room</option>
 </select>
 
-<form id="conferenceForm" action="firstphp.php" method="post">
+<form id="conferenceForm" action="php/add_tuple.php" method="post">
 <input type="hidden" name="formName" value="viewConference">
 <input type="submit" name="action" value="Submit">
 </form> 
+
 
 <form id="subcommitteeForm" action="php/add_tuple.php">
 Name: <input type="text" name="name" value=""><br>
@@ -41,14 +42,9 @@ Last Name: <input type="text" name="last-name" value=""><br>
 <input type="submit" value="Submit">
 </form>
 
-<form id="sessionForm" action="php/add_tuple.php">
-Session ID: <input type="text" name="session-id" value=""><br>
-Speaker: <input type="text" name="speaker" value=""><br>
-Room Number: <input type="text" name="room-number" value=""><br>
-Start Date: <input type="text" name="start-date" value=""><br>
-Start Time: <input type="text" name="start-time" value=""><br>
-End Time: <input type="text" name="end-time" value=""><br>
-<input type="submit" value="Submit">
+<form id="sessionForm" action="firstphp.php" method ="post">
+<input type="hidden" name="formName" value="viewSession">
+<input type="submit" name="action" value="Submit">
 </form>
 
 <form id="studentForm" action="firstphp.php" method="post">
