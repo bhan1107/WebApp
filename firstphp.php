@@ -111,13 +111,48 @@ try { //connecting to the DB
     	$selected_date = $_POST['dateChosen'];
     	showSessionDate($selected_date, $conn);
 	}
+    else if ($formName == "viewAttendee"){
+		listAttendees($conn);
+	}
+    
 
     }
 catch(PDOException $e)
     {
     echo "Connection failed: " . $e->getMessage();
     }
-
+function listAttendees($conn){
+        echo '<br>';
+        echo "Students:";
+        echo '<br>';
+    
+        $sql = "SELECT `FirstName`, `LastName` FROM `student`";
+		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
+			echo 'First Name: ' . $row['FirstName'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
+			echo 'Last Name: ' . $row['LastName'] . '<br>';
+		}
+        
+        echo '<br>';
+        echo "Professionals:";
+        echo '<br>';
+        
+        $sql = "SELECT `FirstName`, `LastName` FROM `professional`";
+        foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
+			echo 'First Name: ' . $row['FirstName'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
+			echo 'Last Name: ' . $row['LastName'] . '<br>';
+		}
+        
+        echo '<br>';
+        echo "Sponsors:";
+        echo '<br>';
+        
+        $sql = "SELECT `FirstName`, `LastName` FROM `sponsor`";
+        foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
+			echo 'First Name: ' . $row['FirstName'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
+			echo 'Last Name: ' . $row['LastName'] . '<br>';
+		}
+    }
+    
 function insertCompany($conn, $companyName, $tier, $emailNumber, $emailSent) #Insert company
 	{
 		echo "function called";
