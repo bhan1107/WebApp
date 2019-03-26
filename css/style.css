@@ -160,11 +160,15 @@ body, table, div, p, .content {font-family:'Nanum Gothic';}
 .content{
 	margin:auto;
 	text-align: center;
+	padding-top: 5px;
 }
 
 #tableDropdown {
 	margin: auto;
 	padding: 10px;
 	text-align: center;
-  
+}
+
+option{
+	text-align: center;
 }
