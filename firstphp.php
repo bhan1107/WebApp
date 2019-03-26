@@ -168,10 +168,22 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room) #I
 	{
 		echo "function called";
 		echo "<br>";
-		$sql = "INSERT INTO CISC332.student(Student_ID,FirstName,LastName,Fee,fk_roomNum) 
-		VALUES ('$studentID','$firstName','$lastName','$fee','$room')";
-		$conn->exec($sql);
-		echo "Inserted successfully";
+        $sql = "SELECT `bedNum`, `Occupancy` FROM `rooms` WHERE `roomNum` = '$room'";
+        foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
+            if ($row['Occupancy'] >= $row['bedNum']){
+                echo "Error, too many people already living in that room";
+            
+            } else {
+                
+                $sql = "INSERT INTO CISC332.student(Student_ID,FirstName,LastName,Fee,fk_roomNum) 
+                VALUES ('$studentID','$firstName','$lastName','$fee','$room')";
+                $conn->exec($sql);
+                echo "Inserted successfully";
+                $OccupancyUpdate = $row['Occupancy'] + 1;
+                $sql = "UPDATE rooms SET Occupancy = '$OccupancyUpdate' WHERE roomNum = '$room'";
+                $conn->exec($sql);
+            }
+        }
     }
     function deleteCompany($conn, $companyName, $tier, $emailNumber, $emailSent) #Insert company
 	{
