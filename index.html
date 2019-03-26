@@ -31,10 +31,19 @@
       <option value="viewRooms">view all students in the same room</option>
     </select>
   
+    
+  </div>
+  <div class="content">
+    <form id="sessionForm" action="firstphp.php" method ="post">
+        <input type="hidden" name="formName" value="viewSession">
+        <input type="submit" name="action" value="Submit">
+    </form>
+  </div>
+  <div class="content">
     <form id="conferenceForm" action="php/add_tuple.php" method="post">
       <input type="hidden" name="formName" value="viewConference">
       <input type="submit" name="action" value="Submit">
-      </form> 
+    </form> 
   </div>
 
   <div class="content">
