@@ -1,0 +1,170 @@
+#subcommitteeForm, #personForm, 
+#companyForm, #sessionForm, #studentForm, #professionalForm,
+#sponsorForm, #roomsForm, #jobForm, #viewSubsForm, #viewRoomsForm {
+	display: none;
+}
+
+/* First drop down item only */
+#conferenceForm {
+	display: block;
+}
+
+.navbar {
+	overflow: hidden;
+	background-color: #333;
+	position: fixed; /* Set the navbar to fixed position */
+	top: 0; /* Position the navbar at the top of the page */
+	width: 100%; /* Full width */
+}
+.navbar a {
+	float: left;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+.content{
+	margin-top: 100px;
+}
+
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+ 
+body, table, div, p, .content {font-family:'Nanum Gothic';}
+#custom-header{
+	display:block;
+	margin:0;
+	padding:0;
+	font-size:0;
+	text-align:center;
+	text-indent:-999em;
+	line-height:0;
+	overflow:hidden;
+	z-index:8;
+}
+
+#custom-header img{
+	text-align:center;
+	margin:0 auto 0
+}
+
+.menu-toggle{
+	display:block;
+	font-size:1.8em;
+	font-weight:400;
+	text-transform:none;
+	text-align:center;
+	margin:0;
+	padding:12px
+}
+
+#navigation{
+	display:block;
+	background:0 0;
+	font-size:.8em;
+	font-style:normal;
+	font-weight:400;
+	letter-spacing:.2px;
+	margin:0 auto 0px;
+	padding:0;
+	text-align:center;
+}
+
+
+.menu,.menu *{
+	margin:0;padding:0;list-style:none
+}
+.menu{
+	width:auto;
+	width:-webkit-fit-content;
+	width:-moz-fit-content;
+	width:fit-content
+}
+
+.menu ul{
+	margin:0;
+	padding:0
+}
+.menu li:hover{
+	visibility:inherit
+}
+.menu li{
+	display:inline-block;
+	position:relative;
+}
+.menu a{
+	display:inline-block;
+	position:relative;
+}
+.menu li:hover ul{
+	top:50px;
+	z-index:99;
+}
+
+.menu{
+	margin:0 auto 0px;
+}
+.menu a{
+	color:#999;
+	color:rgba(0,0,0,.5);
+	text-align:center;
+	text-decoration:none;
+	line-height:1.2;
+	margin:0;
+	padding:0 12px;
+	border-left:1px solid rgba(0,0,0,.2)
+}
+
+.menu a{
+	color:#999;
+	color:rgba(0,0,0,.5);
+	text-shadow:none;
+}
+.menu a:hover{
+	color:#333;
+	color:rgba(0,0,0,.9);
+	outline:0;
+}
+.menu li:first-child a{
+	border-left:none
+}
+.menu li li a{
+	display:block;
+	color:#999;
+	color:rgba(0,0,0,.5);
+	height:auto;
+	line-height:32px;
+	margin:0 12px;
+	padding:0;
+	text-align:center;
+	text-decoration:none;
+	border-left:none;
+	border-top:1px solid rgba(0,0,0,.12)
+}
+.menu li li:first-child a{
+	border-top:none
+}
+.menu li li a:focus,.menu li li a:hover{
+	color:#333;
+	color:rgba(0,0,0,.9);
+	outline:0
+}
+.menu li{
+	line-height:60px;
+	margin:0
+}
+.menu li li,.menu li ul{
+	line-height:0
+}
+
+.content{
+	margin:auto;
+	text-align: center;
+}
+
+#tableDropdown {
+	margin: auto;
+	padding: 10px;
+	text-align: center;
+  
+}

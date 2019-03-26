@@ -3,30 +3,39 @@
 <head>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="textfields.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
-
-<select id="tableDropdown">
-  <option value="conference">conference</option>
-  <option value="subcommittee">subcommittee</option>
-  <option value="person">person</option>
-  <option value="session">session</option>
-  <option value="student">student</option>
-  <option value="professional">professional</option>
-  <option value="company">company</option>
-  <option value="sponsor">sponsor</option>
-  <option value="rooms">rooms</option>
-  <option value="job">job</option>
-  <option value="viewSubs">view members in subcommittee</option>
-  <option value="viewRooms">view all students in the same room</option>
-</select>
-
-
-<form id="sessionForm" action="firstphp.php" method ="post">
-<input type="hidden" name="formName" value="viewSession">
-<input type="submit" name="action" value="Submit">
-</form>
+    <div class="row">
+      <nav id="navigation" class="navigation-main" role="navigation">
+        <div class="menu-street-container"><ul id="menu-street" class="menu">
+          <li class="menu-item"><a href="http://benhan.ddns.net:8889">Home</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  
+  <div class="content">
+    <select id="tableDropdown">
+      <option value="conference">conference</option>
+      <option value="subcommittee">subcommittee</option>
+      <option value="person">person</option>
+      <option value="session">session</option>
+      <option value="student">student</option>
+      <option value="professional">professional</option>
+      <option value="company">company</option>
+      <option value="sponsor">sponsor</option>
+      <option value="rooms">rooms</option>
+      <option value="job">job</option>
+      <option value="viewSubs">view members in subcommittee</option>
+      <option value="viewRooms">view all students in the same room</option>
+    </select>
+  
+    <form id="conferenceForm" action="php/add_tuple.php" method="post">
+      <input type="hidden" name="formName" value="viewConference">
+      <input type="submit" name="action" value="Submit">
+      </form> 
+  </div>
 
 <form id="studentForm" action="firstphp.php" method="post">
 <p>Student ID:</p>
