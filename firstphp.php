@@ -134,11 +134,11 @@ function viewIntake($conn){
     $sponsorIntake = "SELECT (SELECT DISTINCT CAST(SUM(Fee) AS unsigned) FROM `company`) AS `BLM`";
     
     foreach($conn->query($studentIntake, PDO::FETCH_ASSOC) as $row){
-		echo 'Total Intake: ' . $row['KKK'] . '<br>';
+		echo 'Total Intake: $' . $row['KKK'] . '<br>';
 	}
     
     foreach($conn->query($sponsorIntake, PDO::FETCH_ASSOC) as $row){
-		echo 'Sponsor Intake: ' . $row['BLM'] . '<br>';
+		echo 'Sponsor Intake: $' . $row['BLM'] . '<br>';
 	}
     
 }      
