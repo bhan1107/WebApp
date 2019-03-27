@@ -20,17 +20,17 @@ try { //connecting to the DB
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully\n";
+    //echo "Connected successfully\n";
 	echo "<br>";
-	echo "$formName" . " HELLO!" . "<br>";
-	echo "$action" . " is action name <br>";
-	if($action == "add"){
-		echo "Add<br>";
-	}else{
-		echo "List <br>";
-	}
+	//echo "$formName" . " HELLO!" . "<br>";
+	//echo "$action" . " is action name <br>";
+	//if($action == "add"){
+	//	echo "Add<br>";
+	//}else{
+	//	echo "List <br>";
+	//}
     if($action == "add" && $formName == "sponsorInsert"){
-    	echo "sponsor insert if statement called";
+    	//echo "sponsor insert if statement called";
     	echo "<br>";
     	$firstName = $_POST["firstname"];                      
 		$lastName = $_POST["lastname"];
@@ -41,12 +41,12 @@ try { //connecting to the DB
 	}
 
 	else if($formName == "sponsorInsert" && $action == "list"){
-		echo "Sponsor List is called";
+		//echo "Sponsor List is called";
     	listSponsor($conn);
 	}
 	
     else if($formName == "professionalInsert"){
-    	echo "professional insert if statement called";
+    	//echo "professional insert if statement called";
     	echo "<br>";
         $professionalID = $_POST["professionalID"];
     	$firstName = $_POST["firstname"];                      
@@ -56,7 +56,7 @@ try { //connecting to the DB
 	}
     
     else if($formName == "studentInsert"){
-    	echo "student insert if statement called";
+    	//echo "student insert if statement called";
     	echo "<br>";
         $studentID = $_POST["studentID"];
     	$firstName = $_POST["firstname"];                      
@@ -66,7 +66,7 @@ try { //connecting to the DB
     	insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room);
 	}
     else if($formName == "company" && $action == "add"){
-    	echo "company insert if statement called";
+    	//echo "company insert if statement called";
     	echo "<br>";
     	$companyName = $_POST["companyName"];
         $fee = $_POST["companyFee"];
@@ -94,7 +94,7 @@ try { //connecting to the DB
     	deleteCompany($conn, $companyName, $fee, $tier, $emailNumber, $emailSent);
 	}
 	else if($formName == "listJobs"){
-		echo "list Jobs called";
+		//echo "list Jobs called";
 		echo "<br>";
 		$companyName = $_POST["companyName"];
 		listJobs($conn, $companyName);
@@ -179,8 +179,6 @@ function listAttendees($conn){
     
 function insertCompany($conn, $companyName, $fee, $tier, $emailNumber, $emailSent) #Insert company
 	{
-		echo "function called";
-		echo "<br>";
 		$sql = "INSERT INTO CISC332.company(Name,Fee,Tier,Email_Num,Email_Sent) 
 		VALUES ('$companyName', '$fee', '$tier', '$emailNumber', '$emailSent')";
 		try{
@@ -196,8 +194,6 @@ function insertCompany($conn, $companyName, $fee, $tier, $emailNumber, $emailSen
     
 function insertSponsor($conn, $firstName, $lastName, $sponsorID, $fee, $companyName) #Insert sponsor
 	{
-		echo "function called";
-		echo "<br>";
 		$sql = "INSERT INTO CISC332.sponsor(Sponsor_ID,FirstName,LastName,Fee,Company_Name) 
 		VALUES ('$sponsorID','$firstName','$lastName','$fee','$companyName')";
 		$conn->exec($sql);
@@ -215,8 +211,6 @@ function listSponsor($conn)
 	
 function insertProfesional($conn, $professionalID, $firstName, $lastName, $fee) #Insert professional
 	{
-		echo "function called";
-		echo "<br>";
 		$sql = "INSERT INTO CISC332.professional(Professional_ID,FirstName,LastName,Fee) 
 		VALUES ('$professionalID','$firstName','$lastName','$fee')";
 		$conn->exec($sql);
@@ -225,8 +219,6 @@ function insertProfesional($conn, $professionalID, $firstName, $lastName, $fee) 
     
 function insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room) #Insert student
 	{
-		echo "function called";
-		echo "<br>";
         $sql = "SELECT `bedNum`, `Occupancy` FROM `rooms` WHERE `roomNum` = '$room'";
         foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
             if ($row['Occupancy'] >= $row['bedNum']){
@@ -246,16 +238,12 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room) #I
     }
     function deleteCompany($conn, $companyName, $fee, $tier, $emailNumber, $emailSent) #Insert company
 	{
-		echo "Delete Company Function Called";
-		echo "<br>";
 		$sql = "DELETE FROM CISC332.company WHERE Name = '$companyName' AND Tier = '$tier'; ";
 		$conn->exec($sql);
 		echo "Delete successfully";
     }
     function listJobs($conn, $companyName)
     {
-    	echo "list job Function Called";
-		echo "<br>";
 		if(empty($companyName)){
 			$sql = "SELECT `Company_Name`, `Title`, `City`, `Province`, `Payrate` FROM `job`";
 		}

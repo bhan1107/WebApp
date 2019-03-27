@@ -10,7 +10,7 @@ body {
 #centerContainer {
 	margin: 0;
 	width: 70%;
-    background: yellow;
+    /*background: yellow;*/
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -18,14 +18,8 @@ body {
 }
 
 .ErrorText {
-	
-	/*
-	display: inline;
-	background-color: #FF0000;
-	padding: 20px;*/
-	font-size: 2em;
+	font-size: 1.3em;
 	color: #FF0000;
-	
 }
 
 /* First drop down item only */
