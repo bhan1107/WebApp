@@ -17,7 +17,6 @@
   
   <div class="content">
     <select id="tableDropdown">
-      <option value="conference">conference</option>
       <option value="session">session</option>
       <option value="student">student</option>
       <option value="professional">professional</option>
@@ -36,12 +35,6 @@
         <input type="hidden" name="formName" value="viewSession">
         <input type="submit" name="action" value="Submit">
     </form>
-  </div>
-  <div class="content">
-    <form id="conferenceForm" action="php/add_tuple.php" method="post">
-      <input type="hidden" name="formName" value="viewConference">
-      <input type="submit" name="action" value="Submit">
-    </form> 
   </div>
 
   <div class="content">
@@ -111,6 +104,8 @@
   <form id="companyForm" action="firstphp.php" method="post">
   <p>Company Name:</p>
   <input type="text" name="companyName">
+  <p>Fee:</p>
+  <input type="text" name="companyFee">
   <p>Tier:</p>
   <input type="text" name="tier">
   <p>Email Number:</p>

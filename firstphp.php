@@ -66,11 +66,12 @@ try { //connecting to the DB
     else if($formName == "company" && $action == "add"){
     	echo "company insert if statement called";
     	echo "<br>";
-    	$companyName = $_POST["companyName"];                      
+    	$companyName = $_POST["companyName"];
+        $fee = $_POST["companyFee"];
 		$tier = $_POST["tier"];
 		$emailNumber = $_POST["emailNumber"];
 		$emailSent = $_POST["emailSent"];                      
-    	insertCompany($conn, $companyName, $tier, $emailNumber, $emailSent);
+    	insertCompany($conn, $companyName, $fee, $tier, $emailNumber, $emailSent);
 	}
 	else if ($formName == "viewSubCommittees"){
 		showSubcommittees($conn);
@@ -83,11 +84,12 @@ try { //connecting to the DB
 	else if($formName == "company" && $action == "delete"){
     	echo "company delete is statement called";
     	echo "<br>";
-    	$companyName = $_POST["companyName"];                      
+    	$companyName = $_POST["companyName"];
+        $fee = $_POST["companyFee"];        
 		$tier = $_POST["tier"];
 		$emailNumber = $_POST["emailNumber"];
 		$emailSent = $_POST["emailSent"];                 
-    	deleteCompany($conn, $companyName, $tier, $emailNumber, $emailSent);
+    	deleteCompany($conn, $companyName, $fee, $tier, $emailNumber, $emailSent);
 	}
 	else if($formName == "listJobs"){
 		echo "list Jobs called";
@@ -153,12 +155,12 @@ function listAttendees($conn){
 		}
     }
     
-function insertCompany($conn, $companyName, $tier, $emailNumber, $emailSent) #Insert company
+function insertCompany($conn, $companyName, $fee, $tier, $emailNumber, $emailSent) #Insert company
 	{
 		echo "function called";
 		echo "<br>";
-		$sql = "INSERT INTO CISC332.company(Name,Tier,Email_Num,Email_Sent) 
-		VALUES ('$companyName', '$tier', '$emailNumber', '$emailSent')";
+		$sql = "INSERT INTO CISC332.company(Name,Fee,Tier,Email_Num,Email_Sent) 
+		VALUES ('$companyName', '$fee', '$tier', '$emailNumber', '$emailSent')";
 		try{
 		$conn->exec($sql);
 		echo "Inserted successfully";
@@ -170,7 +172,7 @@ function insertCompany($conn, $companyName, $tier, $emailNumber, $emailSent) #In
 		}
     }
     
-function insertSponsor($conn,$firstName, $lastName, $sponsorID, $fee, $companyName) #Insert sponsor
+function insertSponsor($conn, $firstName, $lastName, $sponsorID, $fee, $companyName) #Insert sponsor
 	{
 		echo "function called";
 		echo "<br>";
@@ -220,13 +222,13 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room) #I
             }
         }
     }
-    function deleteCompany($conn, $companyName, $tier, $emailNumber, $emailSent) #Insert company
+    function deleteCompany($conn, $companyName, $fee, $tier, $emailNumber, $emailSent) #Insert company
 	{
 		echo "Delete Company Function Called";
 		echo "<br>";
 		$sql = "DELETE FROM CISC332.company WHERE Name = '$companyName' AND Tier = '$tier'; ";
 		$conn->exec($sql);
-		echo "Inserted successfully";
+		echo "Delete successfully";
     }
     function listJobs($conn, $companyName)
     {
