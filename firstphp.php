@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+		<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
+	<div id="centerContainer">
 <h2>Employee Information</h2>
 
- <?php
+<?php
 $servername = "localhost:3307";
 $username = "bhan1107";
 $password = "ss1ss2ss";
@@ -187,7 +189,7 @@ function insertCompany($conn, $companyName, $fee, $tier, $emailNumber, $emailSen
 		}
 		catch (PDOException $e){
 			if ($e->errorInfo[1] == 1062){
-				echo "Error, that company already exists";
+				echo "<p class='ErrorText'>Error, that company already exists</p>";
 			}
 		}
     }
@@ -409,7 +411,7 @@ function showSession($conn){
 	<?php 
 }
 ?>
-
+</div>
 </body>
 </html> 
 

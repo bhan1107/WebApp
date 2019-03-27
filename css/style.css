@@ -4,6 +4,29 @@
 #viewAttendeeForm, #totalIntakeForm {
 	display: none;
 }
+body {
+	 position: relative 
+}
+#centerContainer {
+	margin: 0;
+	width: 70%;
+    background: yellow;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.ErrorText {
+	
+	/*
+	display: inline;
+	background-color: #FF0000;
+	padding: 20px;*/
+	font-size: 2em;
+	color: #FF0000;
+	
+}
 
 /* First drop down item only */
 #sessionForm {
