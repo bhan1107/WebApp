@@ -4,8 +4,16 @@
 		<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
+	  <div class="row">
+    <nav id="navigation" class="navigation-main" role="navigation">
+      <div class="menu-street-container"><ul id="menu-street" class="menu">
+        <li class="menu-item"><a href="http://benhan.ddns.net:8889">Home</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
 	<div id="centerContainer">
-<h2>Employee Information</h2>
+<h3>Employee Information</h3>
 
 <?php
 $servername = "localhost:3307";
