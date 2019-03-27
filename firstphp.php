@@ -118,6 +118,9 @@ try { //connecting to the DB
     else if ($formName == "viewAttendee"){
 		listAttendees($conn);
 	}
+    else if ($formName == "viewTotalIntake"){
+		viewIntake($conn);
+	}
     
 
     }
@@ -125,6 +128,23 @@ catch(PDOException $e)
     {
     echo "Connection failed: " . $e->getMessage();
     }
+
+function viewIntake($conn){
+
+    $studentIntake = "SELECT (((SELECT COUNT(*) FROM `student`) * 50) + ((SELECT COUNT(*) FROM `professional`) * 100)) AS `KKK`";
+      
+    $sponsorIntake = "SELECT (SELECT DISTINCT CAST(SUM(Fee) AS unsigned) FROM `company`) AS `BLM`";
+    
+    foreach($conn->query($studentIntake, PDO::FETCH_ASSOC) as $row){
+		echo 'Total Intake: ' . $row['KKK'] . '<br>';
+	}
+    
+    foreach($conn->query($sponsorIntake, PDO::FETCH_ASSOC) as $row){
+		echo 'Sponsor Intake: ' . $row['BLM'] . '<br>';
+	}
+    
+}      
+
 function listAttendees($conn){
         echo '<br>';
         echo "Students:";
