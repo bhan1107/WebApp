@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	var lastForm;
 	// Only for the first one in the drop down menu
-	lastForm = $("#conferenceForm");
+	lastForm = $("#sessionForm");
 
     $("#tableDropdown").change(function () {
     	$(lastForm).css("display", "none");

@@ -1,11 +1,12 @@
 #subcommitteeForm, #personForm, 
-#companyForm, #sessionForm, #studentForm, #professionalForm,
-#sponsorForm, #roomsForm, #jobForm, #viewSubsForm, #viewRoomsForm, #viewAttendeeForm {
+#companyForm, #studentForm, #professionalForm,
+#sponsorForm, #roomsForm, #jobForm, #viewSubsForm, #viewRoomsForm, #viewAttendeeForm,
+#totalIntakeForm {
 	display: none;
 }
 
 /* First drop down item only */
-#conferenceForm {
+#sessionForm {
 	display: block;
 }
 
