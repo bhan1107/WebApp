@@ -131,16 +131,16 @@ catch(PDOException $e)
 
 function viewIntake($conn){
 
-    $studentIntake = "SELECT (((SELECT COUNT(*) FROM `student`) * 50) + ((SELECT COUNT(*) FROM `professional`) * 100)) AS `KKK`";
+    $studentIntake = "SELECT (((SELECT COUNT(*) FROM `student`) * 50) + ((SELECT COUNT(*) FROM `professional`) * 100)) AS `total`";
       
-    $sponsorIntake = "SELECT (SELECT DISTINCT CAST(SUM(Fee) AS unsigned) FROM `company`) AS `BLM`";
+    $sponsorIntake = "SELECT (SELECT DISTINCT CAST(SUM(Fee) AS unsigned) FROM `company`) AS `sponsor`";
     
     foreach($conn->query($studentIntake, PDO::FETCH_ASSOC) as $row){
-		echo 'Total Intake: $' . $row['KKK'] . '<br>';
+		echo 'Total Intake: $' . $row['total'] . '<br>';
 	}
     
     foreach($conn->query($sponsorIntake, PDO::FETCH_ASSOC) as $row){
-		echo 'Sponsor Intake: $' . $row['BLM'] . '<br>';
+		echo 'Sponsor Intake: $' . $row['sponsor'] . '<br>';
 	}
     
 }      
