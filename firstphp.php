@@ -115,7 +115,7 @@ try { //connecting to the DB
     	$selected_room = $_POST['roomNumChosen'];
     	showStudentsInRoom($selected_room, $conn);
 	}
-    else if ($formName == "viewSession"){
+    else if ($formName == "viewSession" && $action == "schedule"){
 		showSession($conn);
 	}
     else if ($formName == "sessionDateForm"){
@@ -123,12 +123,23 @@ try { //connecting to the DB
     	$selected_date = $_POST['dateChosen'];
     	showSessionDate($selected_date, $conn);
 	}
+    
+    else if($formName == "viewSession" && $action == "delete"){
+    	echo "company delete is statement called <br>";                
+    	deleteSession($conn);
+	}
+    else if ($formName == "deleteSessionForm"){
+		echo "<br>";
+    	$selected_ID = $_POST['sessionChosen'];
+    	deleteSessionDate($selected_ID, $conn);
+	}
     else if ($formName == "viewAttendee"){
 		listAttendees($conn);
 	}
     else if ($formName == "viewTotalIntake"){
 		viewIntake($conn);
 	}
+    
     
 
     }
@@ -360,6 +371,55 @@ function showHotelRooms($conn){
 	<?php 
 }
 
+ function deleteSession($conn) {
+	
+    
+    $sql = "SELECT `Session_ID`, `Start_Date`, `Start_Time`, `End_Time` FROM  `session`";
+		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
+			echo 'Session_ID: ' . $row['Session_ID'] . ' ';
+			echo 'Start_Date: ' . $row['Start_Date'] . ' ';
+            echo 'Start_Time: ' . $row['Start_Time'] . ' ';
+            echo 'End_Time: ' . $row['End_Time'] . '<br>';
+		}
+    
+    $stmt = $conn->prepare("SELECT `Session_ID` FROM  `session`");
+
+	$stmt->execute();
+
+	$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+	$arrayRemovedDupes = array_unique($array);
+
+
+	echo "<br>Here is a drop down of all the sessions currently in use:<br>";
+	?> 
+	<form id="sessionsForm" action="firstphp.php" method="post">
+	<select name="sessionChosen">
+	<?php
+	foreach ($arrayRemovedDupes as $session){
+		?>
+		<option value="<?php echo $session; ?>"><?php echo $session; ?></option>
+		<?php
+
+	}
+	?>
+
+	</select>
+	<input type="hidden" name="formName" value="deleteSessionForm">
+  	<input type="submit" name="SubmitButton" value="Select session"/>
+	</form>
+	<?php 
+    }
+
+    function deleteSessionDate($date, $conn){
+
+	$sql = "DELETE FROM CISC332.session WHERE Session_ID = '$date'";
+		$conn->exec($sql);
+		echo "Delete successfully";
+	
+}
+    
+    
 function showSessionDate($date, $conn){
 
 	$stmt = "SELECT `Session_ID`, `Speaker`, `Room_Number`, `Start_Date`, `Start_Time`, `End_Time`  FROM `session` WHERE `Start_Date` = '$date'";
