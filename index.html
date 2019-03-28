@@ -9,12 +9,14 @@
   <div class="row">
     <nav id="navigation" class="navigation-main" role="navigation">
       <div class="menu-street-container"><ul id="menu-street" class="menu">
-        <li class="menu-item"><a href="http://benhan.ddns.net:8889">Home</a></li>
+        <li class="menu-item"><a href="http://benhan.ddns.net:8889">Mentia Nonasa</a></li>
         </ul>
       </div>
     </nav>
   </div>
   
+<hr class="line"> 
+
   <div class="content">
     <select id="tableDropdown">
       <option value="session">session</option>
@@ -104,23 +106,12 @@
 </div>
 
 <div class="content">
-  <form id="companyForm" action="firstphp.php" method="post">
-  <p>Company Name:</p>
-  <input type="text" name="companyName">
-  <p>Fee:</p>
-  <input type="text" name="companyFee">
-  <p>Tier:</p>
-  <input type="text" name="tier">
-  <p>Email Number:</p>
-  <input type="text" name="emailNumber">
-  <p>Email Sent:</p>
-  <input type="text" name="emailSent"><br>
-  <input type="hidden" name="formName" value="company">
-  <input type="submit" name="action" value="add">
-  <input type="submit" name="action" value="delete">
-  <br>
-  </form>
-</div>
+    <form id="companyForm" action="firstphp.php" method ="post">
+        <input type="hidden" name="formName" value="viewCompany">
+        <input type="submit" name="action" value="add">
+        <input type="submit" name="action" value="delete">
+    </form>
+  </div>
 
 <div class="content">
   <form id="viewSubsForm" action="firstphp.php" method="post">

@@ -1,5 +1,4 @@
-#subcommitteeForm, #personForm, 
-#companyForm, #studentForm, #professionalForm,
+#subcommitteeForm, #personForm, #studentForm, #professionalForm,
 #sponsorForm, #roomsForm, #jobForm, #viewSubsForm, #viewRoomsForm, 
 #viewAttendeeForm, #totalIntakeForm {
 	display: none;
@@ -36,6 +35,14 @@ body {
 	color: #FF0000;
 }
 
+<<<<<<< HEAD
+=======
+/* First drop down item only */
+#sessionForm  {
+	display: block;
+}
+
+>>>>>>> a1eba0e015ad79dd1517ddb448a5f79a3e162fef
 .navbar {
 	overflow: hidden;
 	background-color: #333;
@@ -196,7 +203,11 @@ body, table, div, p, .content {font-family:'Nanum Gothic';}
 	padding: 10px;
 	text-align: center;
 	border: black;
+<<<<<<< HEAD
 	background-color: #EEEBE7;
+=======
+	background-color: #eeebe7
+>>>>>>> a1eba0e015ad79dd1517ddb448a5f79a3e162fef
 }
 
 option{
@@ -294,4 +305,9 @@ p{
   
   #submit:hover {
 	color: #e2dedb;
-  }
+	}
+	
+	.line{
+		margin-top: 2px;
+		margin-bottom: 3px;
+	}
