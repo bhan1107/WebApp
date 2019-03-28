@@ -407,7 +407,7 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room) #I
 
 
 function showSubMembers($subcommitteeName, $conn){
-	$stmt = "SELECT FirstName, LastName, person_ID FROM subCommittee NATURAL JOIN person WHERE Member = Person_ID";
+	$stmt = "SELECT FirstName, LastName, person_ID FROM subCommittee NATURAL JOIN person WHERE Member = Person_ID and subCommittee.Name = '$subcommitteeName'";
 
 	echo "Here are all the members in the $subcommitteeName subcommittee:<br>";
 	echo "<br>";
