@@ -186,6 +186,7 @@ body, table, div, p, .content {font-family:'Nanum Gothic';}
 	padding: 10px;
 	text-align: center;
 	border: black;
+	background-color: antiquewhite
 }
 
 option{
@@ -283,4 +284,9 @@ p{
   
   #submit:hover {
 	color: #e2dedb;
-  }
+	}
+	
+	.line{
+		margin-top: 2px;
+		margin-bottom: 3px;
+	}
