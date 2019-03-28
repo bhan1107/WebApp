@@ -281,32 +281,62 @@ function listAttendees($conn){
         echo '<br>';
         echo "Students:";
         echo '<br>';
+
+        echo "<table class='centerTable' border='1'>";
+
+		echo "<tr>";
+		echo "<th>First Name</th>";
+		echo "<th>Last Name</th>";
+		echo "</tr>";
     
         $sql = "SELECT `FirstName`, `LastName` FROM `student`";
 		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
-			echo 'First Name: ' . $row['FirstName'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
-			echo 'Last Name: ' . $row['LastName'] . '<br>';
+			echo "<tr>";
+			echo "<td>" . $row['FirstName'] . "</td>";
+			echo "<td>" . $row['LastName'] . "</td>";
+			echo"</tr>";
 		}
+		echo "</table>";
         
         echo '<br>';
         echo "Professionals:";
         echo '<br>';
+
+        echo "<table class='centerTable' border='1'>";
+
+		echo "<tr>";
+		echo "<th>First Name</th>";
+		echo "<th>Last Name</th>";
+		echo "</tr>";
         
         $sql = "SELECT `FirstName`, `LastName` FROM `professional`";
         foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
-			echo 'First Name: ' . $row['FirstName'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
-			echo 'Last Name: ' . $row['LastName'] . '<br>';
+		echo "<tr>";
+		echo "<td>" . $row['FirstName'] . "</td>";
+		echo "<td>" . $row['LastName'] . "</td>";
+		echo "</tr>";
 		}
+		echo "</table>";
         
         echo '<br>';
         echo "Sponsors:";
         echo '<br>';
+
+        echo "<table class='centerTable' border='1'>";
+
+		echo "<tr>";
+		echo "<th>First Name</th>";
+		echo "<th>Last Name</th>";
+		echo "</tr>";
         
         $sql = "SELECT `FirstName`, `LastName` FROM `sponsor`";
         foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
-			echo 'First Name: ' . $row['FirstName'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
-			echo 'Last Name: ' . $row['LastName'] . '<br>';
+     		echo "<tr>";
+			echo "<td>" . $row['FirstName'] . "</td>";
+			echo "<td>" . $row['LastName'] . "</td>";
+			echo "</tr>";
 		}
+		echo "</table>";
     }
     
     
@@ -377,15 +407,6 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room) #I
 
 
 function showSubMembers($subcommitteeName, $conn){
-
-	//$stmt = $conn->prepare("SELECT Member FROM CISC332.subCommittee WHERE Name = '$subcommitteeName'");
-
-	// $stmt->execute();
-	// Stores the IDs of all the members
-	//$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-
-	//$stmt = "SELECT `Person_ID`, `FirstName`, `LastName` FROM `person`";
 	$stmt = "SELECT FirstName, LastName, person_ID FROM subCommittee NATURAL JOIN person WHERE Member = Person_ID";
 
 	echo "Here are all the members in the $subcommitteeName subcommittee:<br>";
@@ -445,12 +466,21 @@ function showStudentsInRoom($roomNum, $conn){
 
 	$stmt = "SELECT `Student_ID`, `FirstName`, `LastName` FROM `student` WHERE `fk_roomNum` = '$roomNum'";
 
+
+	echo "<table class='centerTable' border='1'>";
+	echo "<tr>";
+	echo "<th>Student ID</th>";
+	echo "<th>First Name</th>";
+	echo "<th>Last Name</th>";
+	echo "</tr>";
 	foreach($conn->query($stmt, PDO::FETCH_ASSOC) as $row){
-		echo "Student {$count}: ";
-    	echo 'Student ID: ' . $row['Student_ID'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
-    	echo 'First Name: ' . $row['FirstName'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
-    	echo 'Last Name: ' . $row['LastName'] . '<br>';
-		}
+		echo "<tr>";
+		echo "<td>" . $row['Student_ID'] . "</td>";
+		echo "<td>" . $row['FirstName'] . "</td>";
+		echo "<td>" . $row['LastName'] . "</td>";
+		echo "</tr>";
+	}
+	echo "</table>";
 }
 
 function showHotelRooms($conn){

@@ -1,6 +1,6 @@
 #subcommitteeForm, #personForm, #studentForm, #professionalForm,
 #sponsorForm, #roomsForm, #jobForm, #viewSubsForm, #viewRoomsForm, 
-#viewAttendeeForm, #totalIntakeForm {
+#viewAttendeeForm, #totalIntakeForm, #companyForm {
 	display: none;
 }
 
