@@ -567,14 +567,26 @@ function modifySelectedSession($conn, $sessionID, $roomNum, $startDate, $startTi
     
 function modifySession($conn) {
     
+	echo "<table class='centerTable' border='1'>";
+	echo "<tr>";
+	echo "<th>Session ID</th>";
+	echo "<th>Room Number</th>";
+	echo "<th>Start Date</th>";
+	echo "<th>Start Time</th>";
+	echo "<th>End Time</th>";
+	echo "</tr>";
+
     $sql = "SELECT `Session_ID`, `Room_Number`, `Start_Date`, `Start_Time`, `End_Time` FROM  `session`";
 		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
-			echo 'Session_ID: ' . $row['Session_ID'] . ' ';
-            echo 'Room_Number: ' . $row['Room_Number'] . ' ';
-			echo 'Start_Date: ' . $row['Start_Date'] . ' ';
-            echo 'Start_Time: ' . $row['Start_Time'] . ' ';
-            echo 'End_Time: ' . $row['End_Time'] . '<br>';
+		echo "<tr>";
+		echo "<td>" . $row['Session_ID'] . "</td>";
+		echo "<td>" . $row['Room_Number'] . "</td>";
+		echo "<td>" . $row['Start_Date'] . "</td>";
+		echo "<td>" . $row['Start_Time'] . "</td>";
+		echo "<td>" . $row['End_Time'] . "</td>";
+		echo "</tr>";
 		}
+	echo "</table>";
     
      ?>
      <div class="content">
