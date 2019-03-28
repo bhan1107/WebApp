@@ -125,9 +125,27 @@ try { //connecting to the DB
 	}
     
     else if($formName == "viewSession" && $action == "delete"){
-    	echo "company delete is statement called <br>";                
+    	echo "session delete is statement called <br>";                
     	deleteSession($conn);
 	}
+    
+    else if($formName == "viewSession" && $action == "add"){
+    	echo "session add is statement called <br>";                
+    	addSession($conn);
+	}
+    
+     else if($formName == "sessionInsert"){
+    	//echo "student insert if statement called";
+    	echo "<br>";
+        $sessionID = $_POST["sessionID"];
+    	$speaker = $_POST["speaker"];                      
+		$roomNum = $_POST["roomNum"];
+		$startDate = $_POST["startDate"]; 
+        $startTime = $_POST["startTime"]; 
+        $endTime = $_POST["endTime"];         
+    	insertSession($conn, $sessionID, $speaker, $roomNum, $startDate, $startTime, $endTime);
+	}
+    
     else if ($formName == "deleteSessionForm"){
 		echo "<br>";
     	$selected_ID = $_POST['sessionChosen'];
@@ -371,6 +389,45 @@ function showHotelRooms($conn){
 	<?php 
 }
 
+function insertSession($conn, $sessionID, $speaker, $roomNum, $startDate, $startTime, $endTime){
+	
+		$sql = "INSERT INTO CISC332.session(Session_ID, Speaker, Room_Number, Start_Date, Start_Time, End_Time) 
+		VALUES ('$sessionID', '$speaker', '$roomNum', '$startDate', '$startTime', '$endTime')";
+		try{
+		$conn->exec($sql);
+		echo "Inserted successfully";
+		}
+		catch (PDOException $e){
+			if ($e->errorInfo[1] == 1062){
+				echo "<p class='ErrorText'>Error, that session already exists</p>";
+			}
+		}
+    }
+
+function addSession($conn) {
+     ?>
+     <div class="content">
+      <form id="sessionForm" action="firstphp.php" method ="post">
+      <p>SessionID:</p>
+      <input type="text" name="sessionID">
+      <p>Speaker:</p>
+      <input type="text" name="speaker">
+      <p>RoomNumber:</p>
+      <input type="text" name="roomNum">
+      <p>StartDate:</p>
+      <input type="text" name="startDate">
+      <p>StartTime:</p>
+      <input type="text" name="startTime">
+      <p>endTime:</p>
+      <input type="text" name="endTime">
+      <input type="hidden" name="formName" value="sessionInsert">
+      <br>
+      <input type="submit">
+      </form> 
+  </div>
+  <?php
+ }
+
  function deleteSession($conn) {
 	
     
@@ -411,7 +468,7 @@ function showHotelRooms($conn){
 	<?php 
     }
 
-    function deleteSessionDate($date, $conn){
+function deleteSessionDate($date, $conn){
 
 	$sql = "DELETE FROM CISC332.session WHERE Session_ID = '$date'";
 		$conn->exec($sql);
