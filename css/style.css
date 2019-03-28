@@ -4,9 +4,16 @@
 #viewAttendeeForm, #totalIntakeForm {
 	display: none;
 }
+
+/* First drop down item only */
+#sessionForm {
+	display: block;
+}
+
 body {
 	 position: relative 
 }
+
 #centerContainer {
 	margin: 0;
 	width: 70%;
@@ -17,14 +24,16 @@ body {
     text-align: center;
 }
 
+.centerThisTableNow {
+	position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+}
+
 .ErrorText {
 	font-size: 1.3em;
 	color: #FF0000;
-}
-
-/* First drop down item only */
-#sessionForm {
-	display: block;
 }
 
 .navbar {
@@ -41,9 +50,6 @@ body {
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;
-}
-.content{
-	margin-top: 100px;
 }
 
 @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
@@ -181,11 +187,16 @@ body, table, div, p, .content {font-family:'Nanum Gothic';}
 	padding-top: 5px;
 }
 
+.centerTable {
+	margin:auto;
+}
+
 #tableDropdown {
 	margin: auto;
 	padding: 10px;
 	text-align: center;
 	border: black;
+	background-color: #EEEBE7;
 }
 
 option{

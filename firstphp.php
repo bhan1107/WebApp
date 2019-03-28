@@ -302,16 +302,37 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room) #I
 
 function showSubMembers($subcommitteeName, $conn){
 
-	$stmt = $conn->prepare("SELECT Member FROM CISC332.subCommittee WHERE Name = '$subcommitteeName'");
+	//$stmt = $conn->prepare("SELECT Member FROM CISC332.subCommittee WHERE Name = '$subcommitteeName'");
 
-	$stmt->execute();
-	$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+	// $stmt->execute();
+	// Stores the IDs of all the members
+	//$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+
+	//$stmt = "SELECT `Person_ID`, `FirstName`, `LastName` FROM `person`";
+	$stmt = "SELECT FirstName, LastName, person_ID FROM subCommittee NATURAL JOIN person WHERE Member = Person_ID";
 
 	echo "Here are all the members in the $subcommitteeName subcommittee:<br>";
-	for ($x = 0; $x < sizeof($array); $x++){
-		$temp = $x + 1;
-		echo "Member {$temp}: $array[$x]<br>";
+	echo "<br>";
+
+	echo "<table class='centerTable' border='1'>";
+
+	echo "<tr>";
+	echo "<th>Member ID</th>";
+	echo "<th>First Name</th>";
+	echo "<th>Last Name</th>";
+	echo "</tr>";
+	//foreach ($array as $memberId){
+	foreach($conn->query($stmt, PDO::FETCH_ASSOC) as $row){
+		echo "<tr>";
+		echo "<td>" . $row['person_ID'] . "</td>";
+		echo "<td>" . $row['FirstName'] . "</td>";
+		echo "<td>" . $row['LastName'] . "</td>";
+		echo "</tr>";
 	}
+
+	echo "</table>";
+
 }
 
 function showSubcommittees($conn){
@@ -348,13 +369,11 @@ function showStudentsInRoom($roomNum, $conn){
 
 	$stmt = "SELECT `Student_ID`, `FirstName`, `LastName` FROM `student` WHERE `fk_roomNum` = '$roomNum'";
 
-	$count = 1;
 	foreach($conn->query($stmt, PDO::FETCH_ASSOC) as $row){
 		echo "Student {$count}: ";
     	echo 'Student ID: ' . $row['Student_ID'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
     	echo 'First Name: ' . $row['FirstName'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
     	echo 'Last Name: ' . $row['LastName'] . '<br>';
-    	$count = $count + 1;
 		}
 }
 
