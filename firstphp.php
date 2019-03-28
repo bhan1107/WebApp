@@ -155,17 +155,37 @@ try { //connecting to the DB
     	insertSession($conn, $sessionID, $speaker, $roomNum, $startDate, $startTime, $endTime);
 	}
     
+     else if($formName == "sessionModify"){
+    	echo "student modify if statement called";
+    	
+        $sessionID = $_POST["sessionID"];    
+		$roomNum = $_POST["roomNum"];
+		$startDate = $_POST["startDate"]; 
+        $startTime = $_POST["startTime"]; 
+        $endTime = $_POST["endTime"];         
+    	modifySelectedSession($conn, $sessionID, $roomNum, $startDate, $startTime, $endTime);
+	}
+    
+    
     else if ($formName == "deleteSessionForm"){
 		echo "<br>";
     	$selected_ID = $_POST['sessionChosen'];
     	deleteSessionDate($selected_ID, $conn);
 	}
+    
+    else if($formName == "viewSession" && $action == "modify"){
+    	echo "session modify is statement called <br>";                
+    	modifySession($conn);
+	}
+    
+    
     else if ($formName == "viewAttendee"){
 		listAttendees($conn);
 	}
     else if ($formName == "viewTotalIntake"){
 		viewIntake($conn);
 	}
+   
     
     
 
@@ -528,6 +548,54 @@ function insertSession($conn, $sessionID, $speaker, $roomNum, $startDate, $start
 			}
 		}
     }
+    
+function modifySelectedSession($conn, $sessionID, $roomNum, $startDate, $startTime, $endTime){
+        
+		$sql = "UPDATE `session` SET `Room_Number`='$roomNum',`Start_Date`= '$startDate',`Start_Time`= '$startTime',`End_Time`='$endTime' WHERE `Session_ID`='$sessionID'";
+
+		try{
+		$conn->exec($sql);
+		echo "modified successfully";
+		}
+		catch (PDOException $e){
+			if ($e->errorInfo[1] == 1062){
+				echo "<p class='ErrorText'>Error, cannot modify</p>";
+			}
+		}
+}
+    
+    
+function modifySession($conn) {
+    
+    $sql = "SELECT `Session_ID`, `Room_Number`, `Start_Date`, `Start_Time`, `End_Time` FROM  `session`";
+		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
+			echo 'Session_ID: ' . $row['Session_ID'] . ' ';
+            echo 'Room_Number: ' . $row['Room_Number'] . ' ';
+			echo 'Start_Date: ' . $row['Start_Date'] . ' ';
+            echo 'Start_Time: ' . $row['Start_Time'] . ' ';
+            echo 'End_Time: ' . $row['End_Time'] . '<br>';
+		}
+    
+     ?>
+     <div class="content">
+      <form id="sessionForm" action="firstphp.php" method ="post">
+      <p>SessionID:</p>
+      <input type="text" name="sessionID">
+      <p>RoomNumber:</p>
+      <input type="text" name="roomNum">
+      <p>StartDate:</p>
+      <input type="text" name="startDate">
+      <p>StartTime:</p>
+      <input type="text" name="startTime">
+      <p>endTime:</p>
+      <input type="text" name="endTime">
+      <input type="hidden" name="formName" value="sessionModify">
+      <br>
+      <input type="submit">
+      </form> 
+  </div>
+  <?php
+ }
 
 function addSession($conn) {
      ?>
