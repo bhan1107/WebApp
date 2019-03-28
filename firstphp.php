@@ -97,8 +97,6 @@ try { //connecting to the DB
 	}
     
     else if ($formName == "deleteCompanyForm"){
-        echo "in";
-		echo "$companyChoose";
     	$selected_Name = $_POST['companyChoose'];
     	deleteSelectedCompany($selected_Name, $conn);
 	}
