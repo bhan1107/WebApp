@@ -73,16 +73,37 @@ try { //connecting to the DB
         $room = $_POST["roomNumber"];  
     	insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room);
 	}
-    else if($formName == "company" && $action == "add"){
-    	//echo "company insert if statement called";
-    	echo "<br>";
-    	$companyName = $_POST["companyName"];
-        $fee = $_POST["companyFee"];
-		$tier = $_POST["tier"];
-		$emailNumber = $_POST["emailNumber"];
-		$emailSent = $_POST["emailSent"];                      
-    	insertCompany($conn, $companyName, $fee, $tier, $emailNumber, $emailSent);
+    
+   
+    else if($formName == "viewCompany" && $action == "delete"){
+    	echo "company delete is statement called <br>";                
+    	deleteCompany($conn);
 	}
+    
+    else if($formName == "viewCompany" && $action == "add"){
+    	echo "company add is statement called <br>";                
+    	addCompany($conn);
+	}
+    
+    else if($formName == "companyInsert"){
+    	echo "company insert if statement called";
+    	echo "<br>";
+        $Name = $_POST["Name"];
+    	$Fee = $_POST["Fee"];                      
+		$Tier = $_POST["Tier"];
+		$Email_Num = $_POST["Email_Num"]; 
+        $Email_Sent = $_POST["Email_Sent"];        
+    	insertCompany($conn, $Name, $Fee, $Teir, $Email_Num, $Email_Sent);
+	}
+    
+    else if ($formName == "deleteCompanyForm"){
+        echo "in";
+		echo "$companyChoose";
+    	$selected_Name = $_POST['companyChoose'];
+    	deleteSelectedCompany($selected_Name, $conn);
+	}
+    
+    
 	else if ($formName == "viewSubCommittees"){
 		showSubcommittees($conn);
 	}
@@ -90,16 +111,6 @@ try { //connecting to the DB
 		echo "<br>";
     	$selected_subc = $_POST['subcommitteeChosen'];
     	showSubMembers($selected_subc, $conn);
-	}
-	else if($formName == "company" && $action == "delete"){
-    	echo "company delete is statement called";
-    	echo "<br>";
-    	$companyName = $_POST["companyName"];
-        $fee = $_POST["companyFee"];        
-		$tier = $_POST["tier"];
-		$emailNumber = $_POST["emailNumber"];
-		$emailSent = $_POST["emailSent"];                 
-    	deleteCompany($conn, $companyName, $fee, $tier, $emailNumber, $emailSent);
 	}
 	else if($formName == "listJobs"){
 		//echo "list Jobs called";
@@ -166,6 +177,92 @@ catch(PDOException $e)
     echo "Connection failed: " . $e->getMessage();
     }
 
+    function deleteSelectedCompany($date, $conn){
+
+	$sql = "DELETE FROM CISC332.company WHERE Name = '$date'";
+		$conn->exec($sql);
+		echo "Delete successfully";
+	
+}
+    
+ function deleteCompany($conn) {
+	
+    
+    $sql = "SELECT `Name`, `Fee`, `Tier`, `Email_Num`, `Email_Sent` FROM  `company`";
+		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
+			echo 'Name: ' . $row['Name'] . ' ';
+			echo 'Fee: ' . $row['Fee'] . ' ';
+            echo 'Tier: ' . $row['Tier'] . ' ';
+            echo 'Email_Num: ' . $row['Email_Num'] . ' ';
+            echo 'Email_Sent: ' . $row['Email_Sent'] . '<br>';
+		}
+    
+    $stmt = $conn->prepare("SELECT `Name` FROM  `company`");
+
+	$stmt->execute();
+
+	$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+	$arrayRemovedDupes = array_unique($array);
+
+
+	echo "<br>Here is a drop down of all the company name currently in use:<br>";
+	?> 
+	<form id="compForm" action="firstphp.php" method="post">
+	<select name="companyChoose">
+	<?php
+	foreach ($arrayRemovedDupes as $company){
+		?>
+		<option value="<?php echo $company; ?>"><?php echo $company; ?></option>
+		<?php
+
+	}
+	?>
+
+	</select>
+	<input type="hidden" name="formName" value="deleteCompanyForm">
+  	<input type="submit" name="SubmitButton" value="Select company"/>
+	</form>
+	<?php 
+    }
+    
+function addCompany($conn) {  
+    ?>
+    <div class="content">
+    <form id="compForm" action="firstphp.php" method ="post">
+    <p>Company Name:</p>
+    <input type="text" name="Name">
+    <p>Fee:</p>
+    <input type="text" name="Fee">
+    <p>Tier:</p>
+    <input type="text" name="Tier">
+    <p>Email Number:</p>
+    <input type="text" name="Email_Num">
+    <p>Email Sent:</p>
+    <input type="text" name="Email_Sent"><br>
+    <input type="hidden" name="formName" value="companyInsert">
+    <br>
+    <input type="submit">
+    </form> 
+  </div>
+  <?php
+ }
+
+ function insertCompany($conn, $Name, $Fee, $Tier, $Email_Num, $Email_Sent){
+	
+		$sql = "INSERT INTO CISC332.company(Name, Fee, Tier, Email_Num, Email_Sent) 
+		VALUES ('$Name', '$Fee', '$Tier', '$Email_Num', '$Email_Sent')";
+		try{
+		$conn->exec($sql);
+		echo "Inserted successfully";
+		}
+		catch (PDOException $e){
+			if ($e->errorInfo[1] == 1062){
+				echo "<p class='ErrorText'>Error, that company already exists</p>";
+			}
+		}
+    }
+    
 function viewIntake($conn){
 
     $studentIntake = "SELECT (((SELECT COUNT(*) FROM `student`) * 50) + ((SELECT COUNT(*) FROM `professional`) * 100)) AS `total`";
@@ -214,20 +311,6 @@ function listAttendees($conn){
 		}
     }
     
-function insertCompany($conn, $companyName, $fee, $tier, $emailNumber, $emailSent) #Insert company
-	{
-		$sql = "INSERT INTO CISC332.company(Name,Fee,Tier,Email_Num,Email_Sent) 
-		VALUES ('$companyName', '$fee', '$tier', '$emailNumber', '$emailSent')";
-		try{
-		$conn->exec($sql);
-		echo "Inserted successfully";
-		}
-		catch (PDOException $e){
-			if ($e->errorInfo[1] == 1062){
-				echo "<p class='ErrorText'>Error, that company already exists</p>";
-			}
-		}
-    }
     
 function insertSponsor($conn, $firstName, $lastName, $sponsorID, $fee, $companyName) #Insert sponsor
 	{
@@ -273,12 +356,7 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room) #I
             }
         }
     }
-    function deleteCompany($conn, $companyName, $fee, $tier, $emailNumber, $emailSent) #Insert company
-	{
-		$sql = "DELETE FROM CISC332.company WHERE Name = '$companyName' AND Tier = '$tier'; ";
-		$conn->exec($sql);
-		echo "Delete successfully";
-    }
+    
     function listJobs($conn, $companyName)
     {
 		if(empty($companyName)){

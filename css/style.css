@@ -1,5 +1,4 @@
-#subcommitteeForm, #personForm, 
-#companyForm, #studentForm, #professionalForm,
+#subcommitteeForm, #personForm, #studentForm, #professionalForm,
 #sponsorForm, #roomsForm, #jobForm, #viewSubsForm, #viewRoomsForm, 
 #viewAttendeeForm, #totalIntakeForm {
 	display: none;
@@ -23,7 +22,7 @@ body {
 }
 
 /* First drop down item only */
-#sessionForm {
+#sessionForm,  {
 	display: block;
 }
 

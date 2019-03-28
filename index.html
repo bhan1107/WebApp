@@ -104,23 +104,12 @@
 </div>
 
 <div class="content">
-  <form id="companyForm" action="firstphp.php" method="post">
-  <p>Company Name:</p>
-  <input type="text" name="companyName">
-  <p>Fee:</p>
-  <input type="text" name="companyFee">
-  <p>Tier:</p>
-  <input type="text" name="tier">
-  <p>Email Number:</p>
-  <input type="text" name="emailNumber">
-  <p>Email Sent:</p>
-  <input type="text" name="emailSent"><br>
-  <input type="hidden" name="formName" value="company">
-  <input type="submit" name="action" value="add">
-  <input type="submit" name="action" value="delete">
-  <br>
-  </form>
-</div>
+    <form id="companyForm" action="firstphp.php" method ="post">
+        <input type="hidden" name="formName" value="viewCompany">
+        <input type="submit" name="action" value="add">
+        <input type="submit" name="action" value="delete">
+    </form>
+  </div>
 
 <div class="content">
   <form id="viewSubsForm" action="firstphp.php" method="post">
