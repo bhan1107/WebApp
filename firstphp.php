@@ -34,10 +34,9 @@ try { //connecting to the DB
     	echo "<br>";
     	$firstName = $_POST["firstname"];                      
 		$lastName = $_POST["lastname"];
-		$sponsorID = $_POST["sponsorID"];
-		$fee = $_POST["sponsorFee"];                      
+		$sponsorID = $_POST["sponsorID"];                     
 		$companyName = $_POST["companyName"];
-    	insertSponsor($conn,$firstName, $lastName, $sponsorID, $fee, $companyName);
+    	insertSponsor($conn,$firstName, $lastName, $sponsorID, $companyName);
 	}
 
 	else if($formName == "sponsorInsert" && $action == "list"){
@@ -352,10 +351,10 @@ function listAttendees($conn){
     }
     
     
-function insertSponsor($conn, $firstName, $lastName, $sponsorID, $fee, $companyName) #Insert sponsor
+function insertSponsor($conn, $firstName, $lastName, $sponsorID, $companyName) #Insert sponsor
 	{
-		$sql = "INSERT INTO CISC332.sponsor(Sponsor_ID,FirstName,LastName,Fee,Company_Name) 
-		VALUES ('$sponsorID','$firstName','$lastName','$fee','$companyName')";
+		$sql = "INSERT INTO CISC332.sponsor(Sponsor_ID,FirstName,LastName,Company_Name) 
+		VALUES ('$sponsorID','$firstName','$lastName','$companyName')";
 		$conn->exec($sql);
 		echo "Inserted successfully";
 	}
