@@ -155,17 +155,37 @@ try { //connecting to the DB
     	insertSession($conn, $sessionID, $speaker, $roomNum, $startDate, $startTime, $endTime);
 	}
     
+     else if($formName == "sessionModify"){
+    	echo "student modify if statement called";
+    	
+        $sessionID = $_POST["sessionID"];    
+		$roomNum = $_POST["roomNum"];
+		$startDate = $_POST["startDate"]; 
+        $startTime = $_POST["startTime"]; 
+        $endTime = $_POST["endTime"];         
+    	modifySelectedSession($conn, $sessionID, $roomNum, $startDate, $startTime, $endTime);
+	}
+    
+    
     else if ($formName == "deleteSessionForm"){
 		echo "<br>";
     	$selected_ID = $_POST['sessionChosen'];
     	deleteSessionDate($selected_ID, $conn);
 	}
+    
+    else if($formName == "viewSession" && $action == "modify"){
+    	echo "session modify is statement called <br>";                
+    	modifySession($conn);
+	}
+    
+    
     else if ($formName == "viewAttendee"){
 		listAttendees($conn);
 	}
     else if ($formName == "viewTotalIntake"){
 		viewIntake($conn);
 	}
+   
     
     
 
@@ -281,32 +301,62 @@ function listAttendees($conn){
         echo '<br>';
         echo "Students:";
         echo '<br>';
+
+        echo "<table class='centerTable' border='1'>";
+
+		echo "<tr>";
+		echo "<th>First Name</th>";
+		echo "<th>Last Name</th>";
+		echo "</tr>";
     
         $sql = "SELECT `FirstName`, `LastName` FROM `student`";
 		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
-			echo 'First Name: ' . $row['FirstName'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
-			echo 'Last Name: ' . $row['LastName'] . '<br>';
+			echo "<tr>";
+			echo "<td>" . $row['FirstName'] . "</td>";
+			echo "<td>" . $row['LastName'] . "</td>";
+			echo"</tr>";
 		}
+		echo "</table>";
         
         echo '<br>';
         echo "Professionals:";
         echo '<br>';
+
+        echo "<table class='centerTable' border='1'>";
+
+		echo "<tr>";
+		echo "<th>First Name</th>";
+		echo "<th>Last Name</th>";
+		echo "</tr>";
         
         $sql = "SELECT `FirstName`, `LastName` FROM `professional`";
         foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
-			echo 'First Name: ' . $row['FirstName'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
-			echo 'Last Name: ' . $row['LastName'] . '<br>';
+		echo "<tr>";
+		echo "<td>" . $row['FirstName'] . "</td>";
+		echo "<td>" . $row['LastName'] . "</td>";
+		echo "</tr>";
 		}
+		echo "</table>";
         
         echo '<br>';
         echo "Sponsors:";
         echo '<br>';
+
+        echo "<table class='centerTable' border='1'>";
+
+		echo "<tr>";
+		echo "<th>First Name</th>";
+		echo "<th>Last Name</th>";
+		echo "</tr>";
         
         $sql = "SELECT `FirstName`, `LastName` FROM `sponsor`";
         foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
-			echo 'First Name: ' . $row['FirstName'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
-			echo 'Last Name: ' . $row['LastName'] . '<br>';
+     		echo "<tr>";
+			echo "<td>" . $row['FirstName'] . "</td>";
+			echo "<td>" . $row['LastName'] . "</td>";
+			echo "</tr>";
 		}
+		echo "</table>";
     }
     
     
@@ -377,17 +427,29 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room) #I
 
 
 function showSubMembers($subcommitteeName, $conn){
-
-	$stmt = $conn->prepare("SELECT Member FROM CISC332.subCommittee WHERE Name = '$subcommitteeName'");
-
-	$stmt->execute();
-	$array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+	$stmt = "SELECT FirstName, LastName, person_ID FROM subCommittee NATURAL JOIN person WHERE Member = Person_ID and subCommittee.Name = '$subcommitteeName'";
 
 	echo "Here are all the members in the $subcommitteeName subcommittee:<br>";
-	for ($x = 0; $x < sizeof($array); $x++){
-		$temp = $x + 1;
-		echo "Member {$temp}: $array[$x]<br>";
+	echo "<br>";
+
+	echo "<table class='centerTable' border='1'>";
+
+	echo "<tr>";
+	echo "<th>Member ID</th>";
+	echo "<th>First Name</th>";
+	echo "<th>Last Name</th>";
+	echo "</tr>";
+	//foreach ($array as $memberId){
+	foreach($conn->query($stmt, PDO::FETCH_ASSOC) as $row){
+		echo "<tr>";
+		echo "<td>" . $row['person_ID'] . "</td>";
+		echo "<td>" . $row['FirstName'] . "</td>";
+		echo "<td>" . $row['LastName'] . "</td>";
+		echo "</tr>";
 	}
+
+	echo "</table>";
+
 }
 
 function showSubcommittees($conn){
@@ -424,14 +486,21 @@ function showStudentsInRoom($roomNum, $conn){
 
 	$stmt = "SELECT `Student_ID`, `FirstName`, `LastName` FROM `student` WHERE `fk_roomNum` = '$roomNum'";
 
-	$count = 1;
+
+	echo "<table class='centerTable' border='1'>";
+	echo "<tr>";
+	echo "<th>Student ID</th>";
+	echo "<th>First Name</th>";
+	echo "<th>Last Name</th>";
+	echo "</tr>";
 	foreach($conn->query($stmt, PDO::FETCH_ASSOC) as $row){
-		echo "Student {$count}: ";
-    	echo 'Student ID: ' . $row['Student_ID'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
-    	echo 'First Name: ' . $row['FirstName'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
-    	echo 'Last Name: ' . $row['LastName'] . '<br>';
-    	$count = $count + 1;
-		}
+		echo "<tr>";
+		echo "<td>" . $row['Student_ID'] . "</td>";
+		echo "<td>" . $row['FirstName'] . "</td>";
+		echo "<td>" . $row['LastName'] . "</td>";
+		echo "</tr>";
+	}
+	echo "</table>";
 }
 
 function showHotelRooms($conn){
@@ -479,6 +548,66 @@ function insertSession($conn, $sessionID, $speaker, $roomNum, $startDate, $start
 			}
 		}
     }
+    
+function modifySelectedSession($conn, $sessionID, $roomNum, $startDate, $startTime, $endTime){
+        
+		$sql = "UPDATE `session` SET `Room_Number`='$roomNum',`Start_Date`= '$startDate',`Start_Time`= '$startTime',`End_Time`='$endTime' WHERE `Session_ID`='$sessionID'";
+
+		try{
+		$conn->exec($sql);
+		echo "modified successfully";
+		}
+		catch (PDOException $e){
+			if ($e->errorInfo[1] == 1062){
+				echo "<p class='ErrorText'>Error, cannot modify</p>";
+			}
+		}
+}
+    
+    
+function modifySession($conn) {
+    
+	echo "<table class='centerTable' border='1'>";
+	echo "<tr>";
+	echo "<th>Session ID</th>";
+	echo "<th>Room Number</th>";
+	echo "<th>Start Date</th>";
+	echo "<th>Start Time</th>";
+	echo "<th>End Time</th>";
+	echo "</tr>";
+
+    $sql = "SELECT `Session_ID`, `Room_Number`, `Start_Date`, `Start_Time`, `End_Time` FROM  `session`";
+		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
+		echo "<tr>";
+		echo "<td>" . $row['Session_ID'] . "</td>";
+		echo "<td>" . $row['Room_Number'] . "</td>";
+		echo "<td>" . $row['Start_Date'] . "</td>";
+		echo "<td>" . $row['Start_Time'] . "</td>";
+		echo "<td>" . $row['End_Time'] . "</td>";
+		echo "</tr>";
+		}
+	echo "</table>";
+    
+     ?>
+     <div class="content">
+      <form id="sessionForm" action="firstphp.php" method ="post">
+      <p>SessionID:</p>
+      <input type="text" name="sessionID">
+      <p>RoomNumber:</p>
+      <input type="text" name="roomNum">
+      <p>StartDate:</p>
+      <input type="text" name="startDate">
+      <p>StartTime:</p>
+      <input type="text" name="startTime">
+      <p>endTime:</p>
+      <input type="text" name="endTime">
+      <input type="hidden" name="formName" value="sessionModify">
+      <br>
+      <input type="submit">
+      </form> 
+  </div>
+  <?php
+ }
 
 function addSession($conn) {
      ?>
@@ -505,16 +634,28 @@ function addSession($conn) {
  }
 
  function deleteSession($conn) {
-	
-    
-    $sql = "SELECT `Session_ID`, `Start_Date`, `Start_Time`, `End_Time` FROM  `session`";
+
+	echo "<table class='centerTable' border='1'>";
+	echo "<tr>";
+	echo "<th>Session ID</th>";
+	echo "<th>Room Number</th>";
+	echo "<th>Start Date</th>";
+	echo "<th>Start Time</th>";
+	echo "<th>End Time</th>";
+	echo "</tr>";
+
+    $sql = "SELECT `Session_ID`, `Room_Number`, `Start_Date`, `Start_Time`, `End_Time` FROM  `session`";
 		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
-			echo 'Session_ID: ' . $row['Session_ID'] . ' ';
-			echo 'Start_Date: ' . $row['Start_Date'] . ' ';
-            echo 'Start_Time: ' . $row['Start_Time'] . ' ';
-            echo 'End_Time: ' . $row['End_Time'] . '<br>';
+		echo "<tr>";
+		echo "<td>" . $row['Session_ID'] . "</td>";
+		echo "<td>" . $row['Room_Number'] . "</td>";
+		echo "<td>" . $row['Start_Date'] . "</td>";
+		echo "<td>" . $row['Start_Time'] . "</td>";
+		echo "<td>" . $row['End_Time'] . "</td>";
+		echo "</tr>";
 		}
-    
+	echo "</table>";
+
     $stmt = $conn->prepare("SELECT `Session_ID` FROM  `session`");
 
 	$stmt->execute();
@@ -555,17 +696,27 @@ function deleteSessionDate($date, $conn){
     
 function showSessionDate($date, $conn){
 
-	$stmt = "SELECT `Session_ID`, `Speaker`, `Room_Number`, `Start_Date`, `Start_Time`, `End_Time`  FROM `session` WHERE `Start_Date` = '$date'";
-	$count = 1;
+	echo "<table class='centerTable' border='1'>";
+	echo "<tr>";
+	echo "<th>Session ID</th>";
+	echo "<th>Room Number</th>";
+	echo "<th>Speaker</th>";
+	echo "<th>Start Date</th>";
+	echo "<th>Start Time</th>";
+	echo "<th>End Time</th>";
+	echo "</tr>";
+
+	$stmt = "SELECT `Session_ID`, `Room_Number`, `Speaker`, `Room_Number`, `Start_Date`, `Start_Time`, `End_Time`  FROM `session` WHERE `Start_Date` = '$date'";
+
 	foreach($conn->query($stmt, PDO::FETCH_ASSOC) as $row){
-		echo " {$count}: ";
-    	echo 'Session ID: ' . $row['Session_ID'] . ' ';
-        echo 'Speaker: ' . $row['Speaker'] . ' ';
-        echo 'Start_Date: ' . $row['Start_Date'] . ' ';
-        echo 'Start_Time: ' . $row['Start_Time'] .' ';
-        echo 'End_Time: ' . $row['End_Time'] . '<br>';;
-    	$count = $count + 1;
+		echo "<td>" . $row['Session_ID'] . "</td>";
+		echo "<td>" . $row['Room_Number'] . "</td>";
+		echo "<td>" . $row['Speaker'] . "</td>";
+		echo "<td>" . $row['Start_Date'] . "</td>";
+		echo "<td>" . $row['Start_Time'] . "</td>";
+		echo "<td>" . $row['End_Time'] . "</td>";
 		}
+	echo "</table>";
 	
 }
 
