@@ -28,17 +28,9 @@ try { //connecting to the DB
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //echo "Connected successfully\n";
 	echo "<br>";
-	//echo "$formName" . " HELLO!" . "<br>";
-	//echo "$action" . " is action name <br>";
-	//if($action == "add"){
-	//	echo "Add<br>";
-	//}else{
-	//	echo "List <br>";
-	//}
+
     if($action == "add" && $formName == "sponsorInsert"){
-    	//echo "sponsor insert if statement called";
     	echo "<br>";
     	$firstName = $_POST["firstname"];                      
 		$lastName = $_POST["lastname"];
@@ -48,12 +40,10 @@ try { //connecting to the DB
 	}
 
 	else if($formName == "sponsorInsert" && $action == "list"){
-		//echo "Sponsor List is called";
     	listSponsor($conn);
 	}
 	
     else if($formName == "professionalInsert"){
-    	//echo "professional insert if statement called";
     	echo "<br>";
         $professionalID = $_POST["professionalID"];
     	$firstName = $_POST["firstname"];                      
@@ -63,7 +53,6 @@ try { //connecting to the DB
 	}
     
     else if($formName == "studentInsert"){
-    	//echo "student insert if statement called";
     	echo "<br>";
         $studentID = $_POST["studentID"];
     	$firstName = $_POST["firstname"];                      
@@ -75,17 +64,16 @@ try { //connecting to the DB
     
    
     else if($formName == "viewCompany" && $action == "delete"){
-    	echo "company delete is statement called <br>";                
+    	echo "<br>";     
     	deleteCompany($conn);
 	}
     
     else if($formName == "viewCompany" && $action == "add"){
-    	echo "company add is statement called <br>";                
+    	echo "<br>";            
     	addCompany($conn);
 	}
     
     else if($formName == "companyInsert"){
-    	echo "company insert if statement called";
     	echo "<br>";
         $Name = $_POST["Name"];
     	$Fee = $_POST["Fee"];                      
@@ -96,12 +84,14 @@ try { //connecting to the DB
 	}
     
     else if ($formName == "deleteCompanyForm"){
+    	echo "<br>";
     	$selected_Name = $_POST['companyChoose'];
     	deleteSelectedCompany($selected_Name, $conn);
 	}
     
     
 	else if ($formName == "viewSubCommittees"){
+		echo "<br>";
 		showSubcommittees($conn);
 	}
 	else if ($formName == "subcMembersForm"){
@@ -116,6 +106,7 @@ try { //connecting to the DB
 		listJobs($conn, $companyName);
 	}	
 	else if ($formName == "viewRooms"){
+		echo "<br>";
 		showHotelRooms($conn);
 	}
 	else if ($formName == "studentsInRoomForm"){
@@ -124,6 +115,7 @@ try { //connecting to the DB
     	showStudentsInRoom($selected_room, $conn);
 	}
     else if ($formName == "viewSession" && $action == "schedule"){
+    	echo "<br>";
 		showSession($conn);
 	}
     else if ($formName == "sessionDateForm"){
@@ -133,17 +125,16 @@ try { //connecting to the DB
 	}
     
     else if($formName == "viewSession" && $action == "delete"){
-    	echo "session delete is statement called <br>";                
+    	echo "<br>";        
     	deleteSession($conn);
 	}
     
     else if($formName == "viewSession" && $action == "add"){
-    	echo "session add is statement called <br>";                
+    	echo "<br>";             
     	addSession($conn);
 	}
     
      else if($formName == "sessionInsert"){
-    	//echo "student insert if statement called";
     	echo "<br>";
         $sessionID = $_POST["sessionID"];
     	$speaker = $_POST["speaker"];                      
@@ -155,8 +146,7 @@ try { //connecting to the DB
 	}
     
      else if($formName == "sessionModify"){
-    	echo "student modify if statement called";
-    	
+    	echo "<br>";
         $sessionID = $_POST["sessionID"];    
 		$roomNum = $_POST["roomNum"];
 		$startDate = $_POST["startDate"]; 
@@ -173,15 +163,17 @@ try { //connecting to the DB
 	}
     
     else if($formName == "viewSession" && $action == "modify"){
-    	echo "session modify is statement called <br>";                
+    	echo "<br>";           
     	modifySession($conn);
 	}
     
     
     else if ($formName == "viewAttendee"){
+    	echo "<br>";
 		listAttendees($conn);
 	}
     else if ($formName == "viewTotalIntake"){
+    	echo "<br>";
 		viewIntake($conn);
 	}
    
@@ -369,11 +361,21 @@ function insertSponsor($conn, $firstName, $lastName, $sponsorID, $companyName) #
 	
 function listSponsor($conn)
 	{
+		echo "<table class='centerTable' border='1'>";
+
+		echo "<tr>";
+		echo "<th>Company</th>";
+		echo "<th>Sponsorship Level</th>";
+		echo "</tr>";
+    
 		$sql = "SELECT `Name`, `Tier` FROM `company`";
 		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
-			echo 'Company: ' . $row['Name'] . ' ';
-			echo 'Sponsorship Level: ' . $row['Tier'] . '<br>';
+     		echo "<tr>";
+			echo "<td>" . $row['Name'] . "</td>";
+			echo "<td>" . $row['Tier'] . "</td>";
+			echo "</tr>";
 		}
+		echo "</table>";
 	}
 	
 function insertProfesional($conn, $professionalID, $firstName, $lastName, $fee) #Insert professional
@@ -407,21 +409,33 @@ function insertStudent($conn, $studentID, $firstName, $lastName, $fee, $room) #I
     function listJobs($conn, $companyName)
     {
 		if(empty($companyName)){
-			$sql = "SELECT `Company_Name`, `Title`, `City`, `Province`, `Payrate` FROM `job`";
+			$sql = "SELECT `Company_Name`, `Title`, `City`, `Province`, `Payrate`, `Posted_Date` FROM `job`";
 		}
 		else{
-			$sql = "SELECT `Company_Name`, `Title`, `City`, `Province`, `Payrate` FROM `job` WHERE `Company_Name` = '$companyName'";
+			$sql = "SELECT `Company_Name`, `Title`, `City`, `Province`, `Payrate`, `Posted_Date` FROM `job` WHERE `Company_Name` = '$companyName'";
 		}
 		
- 
-		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
-    	echo 'Company: ' . $row['Company_Name'] . ' ';
-    	echo 'Title: ' . $row['Title'] . ' ';
-    	echo 'Payrate: ' . $row['Payrate'] . ' ' ;
-    	echo 'City: ' . $row['City'] . ' ';
-    	echo 'Province: ' . $row['Province'] . '<br>';
+ 		echo "<table class='centerTable' border='1'>";
 
+		echo "<tr>";
+		echo "<th>Company</th>";
+		echo "<th>Title</th>";
+		echo "<th>Payrate</th>";
+		echo "<th>City</th>";
+		echo "<th>Province</th>";
+		echo "<th>Posted Date</th>";
+		echo "</tr>";
+		foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row){
+     		echo "<tr>";
+			echo "<td>" . $row['Company_Name'] . "</td>";
+			echo "<td>" . $row['Title'] . "</td>";
+			echo "<td>" . $row['City'] . "</td>";
+			echo "<td>" . $row['Province'] . "</td>";
+			echo "<td>" . $row['Payrate'] . "</td>";
+			echo "<td>" . $row['Posted_Date'] . "</td>";
+			echo "</tr>";
 		}
+		echo "</table>";
     }
 
 
