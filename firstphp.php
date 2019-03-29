@@ -274,7 +274,7 @@ function viewIntake($conn){
     foreach($conn->query($sponsorIntake, PDO::FETCH_ASSOC) as $row){
 		echo 'Sponsor Intake: $' . $row['sponsor'] . '<br>';
 	}
-    
+    echo (int)$row['total'] + (int)$row['sponsor'];
 }      
 
 function listAttendees($conn){
