@@ -80,7 +80,7 @@ try { //connecting to the DB
 		$Tier = $_POST["Tier"];
 		$Email_Num = $_POST["Email_Num"]; 
         $Email_Sent = $_POST["Email_Sent"];        
-    	insertCompany($conn, $Name, $Fee, $Teir, $Email_Num, $Email_Sent);
+    	insertCompany($conn, $Name, $Fee, $Tier, $Email_Num, $Email_Sent);
 	}
     
     else if ($formName == "deleteCompanyForm"){
