@@ -767,5 +767,4 @@ function showSession($conn){
 ?>
 </div>
 </body>
-</html> 
-
+</html>
